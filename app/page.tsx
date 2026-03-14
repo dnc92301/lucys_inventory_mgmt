@@ -67,7 +67,10 @@ export default function Home() {
       {/* Header */}
       <div style={{ background: '#1A2A3A', padding: '16px 20px', position: 'sticky', top: 0, zIndex: 10 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span style={{ color: '#fff', fontWeight: 700, fontSize: 16 }}>🏪 CK Inventory</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <img src="/lucys-logo.png" alt="Lucy's" style={{ height: 36, width: 36, objectFit: 'contain' }} />
+            <span style={{ color: '#fff', fontWeight: 700, fontSize: 16 }}>CK Inventory</span>
+          </div>
           <span style={{ background: '#048A81', color: '#fff', fontSize: 11, padding: '3px 10px', borderRadius: 20 }}>
             {new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
           </span>
