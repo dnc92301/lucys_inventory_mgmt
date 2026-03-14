@@ -2,113 +2,6 @@
 import { useState } from 'react';
 import { STORES, CATEGORIES } from '../lib/config';
 
-// function Counter({ value, onChange, color }: { value: number, onChange: (v: number) => void, color?: string }) {
-//   return (
-//     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: color || '#f3f4f6', borderRadius: 8, padding: '4px 10px', minWidth: 80 }}>
-//       <button onClick={() => onChange(Math.max(0, value - 1))} style={{ background: 'none', border: 'none', fontSize: 18, cursor: 'pointer', color: '#444', padding: '0 4px' }}>−</button>
-//       <span style={{ fontSize: 15, fontWeight: 600, minWidth: 20, textAlign: 'center' }}>{value}</span>
-//       <button onClick={() => onChange(value + 1)} style={{ background: 'none', border: 'none', fontSize: 18, cursor: 'pointer', color: '#444', padding: '0 4px' }}>+</button>
-//     </div>
-//   );
-// }
-
-// function Counter({ value, onChange, color }: { value: number, onChange: (v: number) => void, color?: string }) {
-//   return (
-//     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: color || '#f3f4f6', borderRadius: 8, padding: '4px 6px', minWidth: 80 }}>
-//       <button 
-//         onPointerDown={(e) => { e.preventDefault(); onChange(Math.max(0, value - 1)); }}
-//         style={{ background: 'none', border: 'none', fontSize: 22, cursor: 'pointer', color: '#444', padding: '8px 10px', minWidth: 40, minHeight: 40 }}>−</button>
-//       <span style={{ fontSize: 15, fontWeight: 600, minWidth: 20, textAlign: 'center' }}>{value}</span>
-//       <button 
-//         onPointerDown={(e) => { e.preventDefault(); onChange(value + 1); }}
-//         style={{ background: 'none', border: 'none', fontSize: 22, cursor: 'pointer', color: '#444', padding: '8px 10px', minWidth: 40, minHeight: 40 }}>+</button>
-//     </div>
-//   );
-// }
-
-// function Counter({ value, onChange, color }: { value: number, onChange: (v: number) => void, color?: string }) {
-//   return (
-//     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: color || '#f3f4f6', borderRadius: 8, padding: '4px 6px', minWidth: 80, position: 'relative', zIndex: 20 }}>
-//       <button 
-//         onClick={(e) => { e.stopPropagation(); onChange(Math.max(0, value - 1)); }}
-//         style={{ background: 'none', border: 'none', fontSize: 22, cursor: 'pointer', color: '#444', padding: '8px 10px', minWidth: 44, minHeight: 44, touchAction: 'manipulation' }}>−</button>
-//       <span style={{ fontSize: 15, fontWeight: 600, minWidth: 20, textAlign: 'center' }}>{value}</span>
-//       <button 
-//         onClick={(e) => { e.stopPropagation(); onChange(value + 1); }}
-//         style={{ background: 'none', border: 'none', fontSize: 22, cursor: 'pointer', color: '#444', padding: '8px 10px', minWidth: 44, minHeight: 44, touchAction: 'manipulation' }}>+</button>
-//     </div>
-//   );
-// }
-
-// function Counter({ value, onChange, color }: { value: number, onChange: (v: number) => void, color?: string }) {
-//   const handleDecrement = (e: React.TouchEvent | React.MouseEvent) => {
-//     e.preventDefault();
-//     e.stopPropagation();
-//     onChange(Math.max(0, value - 1));
-//   };
-//   const handleIncrement = (e: React.TouchEvent | React.MouseEvent) => {
-//     e.preventDefault();
-//     e.stopPropagation();
-//     onChange(value + 1);
-//   };
-//   return (
-//     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: color || '#f3f4f6', borderRadius: 8, padding: '4px 6px', minWidth: 80 }}>
-//       <button
-//         onTouchStart={handleDecrement}
-//         onMouseDown={handleDecrement}
-//         style={{ background: 'none', border: 'none', fontSize: 22, cursor: 'pointer', color: '#444', padding: '8px 10px', minWidth: 44, minHeight: 44, touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}>−</button>
-//       <span style={{ fontSize: 15, fontWeight: 600, minWidth: 20, textAlign: 'center' }}>{value}</span>
-//       <button
-//         onTouchStart={handleIncrement}
-//         onMouseDown={handleIncrement}
-//         style={{ background: 'none', border: 'none', fontSize: 22, cursor: 'pointer', color: '#444', padding: '8px 10px', minWidth: 44, minHeight: 44, touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}>+</button>
-//     </div>
-//   );
-// }
-
-// function Counter({ value, onChange, color }: { value: number, onChange: (v: number) => void, color?: string }) {
-//   const handleDecrement = (e: React.TouchEvent | React.MouseEvent) => {
-//     e.stopPropagation();
-//     onChange(Math.max(0, value - 1));
-//   };
-//   const handleIncrement = (e: React.TouchEvent | React.MouseEvent) => {
-//     e.stopPropagation();
-//     onChange(value + 1);
-//   };
-//   return (
-//     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: color || '#f3f4f6', borderRadius: 8, padding: '4px 6px', minWidth: 80 }}>
-//       <button
-//         onTouchStart={handleDecrement}
-//         onMouseDown={handleDecrement}
-//         style={{ background: 'none', border: 'none', fontSize: 22, cursor: 'pointer', color: '#444', padding: '8px 10px', minWidth: 44, minHeight: 44, touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}>−</button>
-//       <span style={{ fontSize: 15, fontWeight: 600, minWidth: 20, textAlign: 'center' }}>{value}</span>
-//       <button
-//         onTouchStart={handleIncrement}
-//         onMouseDown={handleIncrement}
-//         style={{ background: 'none', border: 'none', fontSize: 22, cursor: 'pointer', color: '#444', padding: '8px 10px', minWidth: 44, minHeight: 44, touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}>+</button>
-//     </div>
-//   );
-// }
-
-// function Counter({ value, onChange, color }: { value: number, onChange: (v: number) => void, color?: string }) {
-//   return (
-//     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: color || '#f3f4f6', borderRadius: 8, padding: '4px 6px', minWidth: 80 }}>
-//       <button
-//         onClick={() => onChange(Math.max(0, value - 1))}
-//         style={{ background: 'none', border: 'none', fontSize: 22, cursor: 'pointer', color: '#444', padding: '8px 10px', minWidth: 44, minHeight: 44, touchAction: 'manipulation' }}>−</button>
-//       <input
-//         type="number"
-//         value={value}
-//         onChange={e => onChange(Math.max(0, parseInt(e.target.value) || 0))}
-//         style={{ width: 40, textAlign: 'center', fontSize: 15, fontWeight: 600, border: 'none', background: 'transparent', WebkitAppearance: 'none' }}
-//       />
-//       <button
-//         onClick={() => onChange(value + 1)}
-//         style={{ background: 'none', border: 'none', fontSize: 22, cursor: 'pointer', color: '#444', padding: '8px 10px', minWidth: 44, minHeight: 44, touchAction: 'manipulation' }}>+</button>
-//     </div>
-//   );
-// }
-
 function Counter({ value, onChange, color }: { value: number, onChange: (v: number) => void, color?: string }) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: color || '#f3f4f6', borderRadius: 8, padding: '4px 6px', minWidth: 80 }}>
@@ -128,13 +21,13 @@ function Counter({ value, onChange, color }: { value: number, onChange: (v: numb
   );
 }
 
-
 export default function Home() {
   const [store, setStore] = useState('');
   const [orders, setOrders] = useState<Record<string, number>>({});
   const [onHand, setOnHand] = useState<Record<string, number>>({});
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [test, setTest] = useState(0);
 
   const setOrderQty = (item: string, val: number) => setOrders(o => ({ ...o, [item]: val }));
   const setOnHandQty = (item: string, val: number) => setOnHand(o => ({ ...o, [item]: val }));
@@ -180,6 +73,11 @@ export default function Home() {
 
   return (
     <div style={{ maxWidth: 480, margin: '0 auto', padding: '0 0 80px', fontFamily: 'system-ui, sans-serif' }}>
+
+      {/* DEBUG - remove after testing */}
+      <div style={{ background: 'red', color: 'white', padding: 20, fontSize: 20, textAlign: 'center' }} onClick={() => setTest(t => t + 1)}>
+        TAP ME: {test}
+      </div>
 
       {/* Header */}
       <div style={{ background: '#1A2A3A', padding: '16px 20px', position: 'sticky', top: 0, zIndex: 10 }}>
