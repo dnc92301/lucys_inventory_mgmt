@@ -26,20 +26,45 @@ import { STORES, CATEGORIES } from '../lib/config';
 //   );
 // }
 
+// function Counter({ value, onChange, color }: { value: number, onChange: (v: number) => void, color?: string }) {
+//   return (
+//     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: color || '#f3f4f6', borderRadius: 8, padding: '4px 6px', minWidth: 80, position: 'relative', zIndex: 20 }}>
+//       <button 
+//         onClick={(e) => { e.stopPropagation(); onChange(Math.max(0, value - 1)); }}
+//         style={{ background: 'none', border: 'none', fontSize: 22, cursor: 'pointer', color: '#444', padding: '8px 10px', minWidth: 44, minHeight: 44, touchAction: 'manipulation' }}>−</button>
+//       <span style={{ fontSize: 15, fontWeight: 600, minWidth: 20, textAlign: 'center' }}>{value}</span>
+//       <button 
+//         onClick={(e) => { e.stopPropagation(); onChange(value + 1); }}
+//         style={{ background: 'none', border: 'none', fontSize: 22, cursor: 'pointer', color: '#444', padding: '8px 10px', minWidth: 44, minHeight: 44, touchAction: 'manipulation' }}>+</button>
+//     </div>
+//   );
+// }
+
 function Counter({ value, onChange, color }: { value: number, onChange: (v: number) => void, color?: string }) {
+  const handleDecrement = (e: React.TouchEvent | React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onChange(Math.max(0, value - 1));
+  };
+  const handleIncrement = (e: React.TouchEvent | React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onChange(value + 1);
+  };
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: color || '#f3f4f6', borderRadius: 8, padding: '4px 6px', minWidth: 80, position: 'relative', zIndex: 20 }}>
-      <button 
-        onClick={(e) => { e.stopPropagation(); onChange(Math.max(0, value - 1)); }}
-        style={{ background: 'none', border: 'none', fontSize: 22, cursor: 'pointer', color: '#444', padding: '8px 10px', minWidth: 44, minHeight: 44, touchAction: 'manipulation' }}>−</button>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: color || '#f3f4f6', borderRadius: 8, padding: '4px 6px', minWidth: 80 }}>
+      <button
+        onTouchStart={handleDecrement}
+        onMouseDown={handleDecrement}
+        style={{ background: 'none', border: 'none', fontSize: 22, cursor: 'pointer', color: '#444', padding: '8px 10px', minWidth: 44, minHeight: 44, touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}>−</button>
       <span style={{ fontSize: 15, fontWeight: 600, minWidth: 20, textAlign: 'center' }}>{value}</span>
-      <button 
-        onClick={(e) => { e.stopPropagation(); onChange(value + 1); }}
-        style={{ background: 'none', border: 'none', fontSize: 22, cursor: 'pointer', color: '#444', padding: '8px 10px', minWidth: 44, minHeight: 44, touchAction: 'manipulation' }}>+</button>
+      <button
+        onTouchStart={handleIncrement}
+        onMouseDown={handleIncrement}
+        style={{ background: 'none', border: 'none', fontSize: 22, cursor: 'pointer', color: '#444', padding: '8px 10px', minWidth: 44, minHeight: 44, touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}>+</button>
     </div>
   );
 }
-
 
 export default function Home() {
   const [store, setStore] = useState('');
