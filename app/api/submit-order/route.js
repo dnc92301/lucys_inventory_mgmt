@@ -4,10 +4,7 @@ import { CATEGORIES, SHEET_COLUMNS } from '../../../lib/config';
 export async function POST(request) {
   try {
     const body = await request.json();
-
-    // deliveryDateStr is now calculated on the client (browser) in local time
-    // so no timezone issues on the server side
-    const { store, orders, onHand, deliveryDateStr } = body;
+    const { store, orders, onHand } = body;
 
     const auth = new google.auth.GoogleAuth({
       credentials: {
@@ -21,6 +18,35 @@ export async function POST(request) {
     const spreadsheetId = '15ZepcPCQjBkghOUw2Jle786BnV38hb0TXjT3bWNUNYI';
 
     const timestamp = new Date().toLocaleString('en-US', { timeZone: 'America/New_York' });
+
+    // ── Rock-solid ET date using en-CA locale (gives YYYY-MM-DD) ──
+    const now = new Date();
+    const etDateStr = now.toLocaleDateString('en-CA', { timeZone: 'America/New_York' }); // "2026-03-20"
+    const etHourStr = now.toLocaleTimeString('en-US', { timeZone: 'America/New_York', hour: '2-digit', hour12: false });
+    const etHour = parseInt(etHourStr); // 0-23
+    const [etYear, etMonth, etDay] = etDateStr.split('-').map(Number);
+    const etDow = new Date(etYear, etMonth - 1, etDay).getDay(); // 0=Sun...6=Sat
+
+    const delivery = new Date(etYear, etMonth - 1, etDay);
+
+    if (etDow === 6) {
+      delivery.setDate(delivery.getDate() + 2);      // Sat → Mon
+    } else if (etDow === 0) {
+      delivery.setDate(delivery.getDate() + 1);      // Sun → Mon
+    } else if (etHour >= 12) {
+      delivery.setDate(delivery.getDate() + 1);      // Weekday PM → tomorrow
+    }
+    // Weekday before noon → today (no change)
+
+    // Safety: never land on Sunday
+    if (delivery.getDay() === 0) {
+      delivery.setDate(delivery.getDate() + 1);
+    }
+
+    const dm = delivery.getMonth() + 1;
+    const dd = delivery.getDate();
+    const dy = delivery.getFullYear();
+    const deliveryDateStr = dm + '/' + dd + '/' + dy;
 
     // Map order quantities to exact sheet column order
     const itemValues = SHEET_COLUMNS.map(col => orders[col] || '');
@@ -43,7 +69,7 @@ export async function POST(request) {
 
     fetch('https://script.google.com/macros/s/AKfycbzUFyOUasxAuuDnjHj9Uqaopu6ZwM1tNUp_2r6dQW8g8XUF57zVCzsm1IU6CN88ko3p/exec');
 
-    return Response.json({ success: true });
+    return Response.json({ success: true, debug: { etDateStr, etHour, etDow, deliveryDateStr } });
 
   } catch (error) {
     console.error('Sheets error:', error);
