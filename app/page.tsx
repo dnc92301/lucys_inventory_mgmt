@@ -62,7 +62,7 @@ export default function Home() {
       <div style={{ maxWidth: 480, margin: '0 auto', padding: '40px 20px', textAlign: 'center' }}>
         <div style={{ fontSize: 48, marginBottom: 16 }}>✅</div>
         <h2 style={{ color: '#048A81', marginBottom: 8 }}>Order Submitted!</h2>
-        <p style={{ color: '#666', marginBottom: 24 }}>{store} — {new Date().toLocaleDateString()}</p>
+        <p style={{ color: '#666', marginBottom: 24 }}>{store} — Order Submitted</p>
         <button onClick={() => { setSubmitted(false); setOrders({}); setOnHand({}); setStore(''); }}
           style={{ background: '#048A81', color: '#fff', border: 'none', borderRadius: 10, padding: '12px 32px', fontSize: 15, cursor: 'pointer' }}>
           New Order
@@ -87,7 +87,7 @@ export default function Home() {
             <span style={{ color: '#fff', fontWeight: 700, fontSize: 16 }}>CK Inventory</span>
           </div>
           <span style={{ background: '#048A81', color: '#fff', fontSize: 11, padding: '3px 10px', borderRadius: 20 }}>
-            {new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
+            Today
           </span>
         </div>
         <select key={store} value={store} onChange={e => setStore(e.target.value)}
