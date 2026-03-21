@@ -108,7 +108,7 @@ export default function Home() {
             <span style={{ color: '#fff', fontWeight: 700, fontSize: 16 }}>CK Inventory</span>
           </div>
           <span style={{ background: '#048A81', color: '#fff', fontSize: 11, padding: '3px 10px', borderRadius: 20 }}>
-            {new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
+            Today
           </span>
         </div>
         <select key={store} value={store} onChange={e => setStore(e.target.value)}
