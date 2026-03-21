@@ -1,6 +1,28 @@
 import { google } from 'googleapis';
 import { CATEGORIES, SHEET_COLUMNS } from '../../../lib/config';
 
+// ── Reliable Eastern Time helper using Intl.DateTimeFormat ───
+function getEasternDateParts() {
+  const now = new Date();
+  const formatter = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York',
+    year:   'numeric',
+    month:  '2-digit',
+    day:    '2-digit',
+    hour:   '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  });
+  const parts = formatter.formatToParts(now);
+  const get = (type) => parseInt(parts.find(p => p.type === type).value);
+  const year  = get('year');
+  const month = get('month'); // 1-based
+  const day   = get('day');
+  const hour  = get('hour'); // 0-23
+  const dow   = new Date(year, month - 1, day).getDay(); // 0=Sun ... 6=Sat
+  return { year, month, day, hour, dow };
+}
+
 export async function POST(request) {
   try {
     const body = await request.json();
@@ -19,26 +41,24 @@ export async function POST(request) {
 
     const timestamp = new Date().toLocaleString('en-US', { timeZone: 'America/New_York' });
 
-    // ── Delivery date calculation (all in Eastern Time) ───────
-    // Before 12PM ET → delivery = today  (catches last night late orders)
+    // ── Delivery date (Eastern Time) ──────────────────────────
+    // Before 12PM ET → delivery = today  (late night orders still count)
     // After  12PM ET → delivery = tomorrow
-    // Saturday order → Monday (+2)
-    // Sunday order   → Monday (+1)
-    // Safety net: never land on Sunday (commissary closed)
-    const etNow = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }));
-    const etHour = etNow.getHours();
-    const etDow  = etNow.getDay(); // 0=Sun, 1=Mon ... 6=Sat
+    // Saturday → Monday (+2)
+    // Sunday   → Monday (+1)
+    // Safety:  never land on Sunday
+    const { year, month, day, hour, dow } = getEasternDateParts();
 
-    const deliveryDate = new Date(etNow);
-    deliveryDate.setHours(0, 0, 0, 0);
+    // Start with today in ET as a plain date (no timezone shift risk)
+    const deliveryDate = new Date(year, month - 1, day); // midnight local, no UTC issues
 
-    if (etDow === 6) {
+    if (dow === 6) {
       // Saturday → Monday
       deliveryDate.setDate(deliveryDate.getDate() + 2);
-    } else if (etDow === 0) {
+    } else if (dow === 0) {
       // Sunday → Monday
       deliveryDate.setDate(deliveryDate.getDate() + 1);
-    } else if (etHour >= 12) {
+    } else if (hour >= 12) {
       // Weekday after noon → tomorrow
       deliveryDate.setDate(deliveryDate.getDate() + 1);
     }
@@ -49,7 +69,11 @@ export async function POST(request) {
       deliveryDate.setDate(deliveryDate.getDate() + 1);
     }
 
-    const deliveryDateStr = deliveryDate.toLocaleDateString('en-US');
+    // Format as M/D/YYYY to match existing sheet format
+    const m = deliveryDate.getMonth() + 1;
+    const d = deliveryDate.getDate();
+    const y = deliveryDate.getFullYear();
+    const deliveryDateStr = m + '/' + d + '/' + y;
 
     // Map order quantities to exact sheet column order
     const itemValues = SHEET_COLUMNS.map(col => orders[col] || '');
