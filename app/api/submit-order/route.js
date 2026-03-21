@@ -29,8 +29,11 @@ export async function POST(request) {
 
     const delivery = new Date(etYear, etMonth - 1, etDay);
 
-    if (etDow === 6) {
-      delivery.setDate(delivery.getDate() + 2);      // Sat → Mon
+    
+    if (etDow === 6 && etHour >= 12) {
+      delivery.setDate(delivery.getDate() + 2);      // Sat after noon → Mon
+    } else if (etDow === 6 && etHour < 12) {
+      // Sat before noon → today, no change
     } else if (etDow === 0) {
       delivery.setDate(delivery.getDate() + 1);      // Sun → Mon
     } else if (etHour >= 12) {
