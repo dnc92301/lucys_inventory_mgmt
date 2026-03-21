@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 'use client';
 import { useState } from 'react';
 import { STORES, CATEGORIES } from '../lib/config';
@@ -56,7 +57,7 @@ export default function Home() {
 
     alert('DEBUG delivery date: ' + deliveryDateStr + ' | dow=' + dow + ' | hour=' + hour);
 
-    
+
     setLoading(true);
     try {
       const response = await fetch('/api/submit-order', {
