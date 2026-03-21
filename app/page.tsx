@@ -54,6 +54,9 @@ export default function Home() {
     if (delivery.getDay() === 0) delivery.setDate(delivery.getDate() + 1); // safety
     const deliveryDateStr = (delivery.getMonth() + 1) + '/' + delivery.getDate() + '/' + delivery.getFullYear();
 
+    alert('DEBUG delivery date: ' + deliveryDateStr + ' | dow=' + dow + ' | hour=' + hour);
+
+    
     setLoading(true);
     try {
       const response = await fetch('/api/submit-order', {
