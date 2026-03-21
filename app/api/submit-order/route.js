@@ -67,7 +67,7 @@ export async function POST(request) {
       resource: { values: [row] },
     });
 
-    fetch('https://script.google.com/macros/s/AKfycbzUFyOUasxAuuDnjHj9Uqaopu6ZwM1tNUp_2r6dQW8g8XUF57zVCzsm1IU6CN88ko3p/exec');
+    await fetch('https://script.google.com/macros/s/AKfycbzUFyOUasxAuuDnjHj9Uqaopu6ZwM1tNUp_2r6dQW8g8XUF57zVCzsm1IU6CN88ko3p/exec');
 
     return Response.json({ success: true, debug: { etDateStr, etHour, etDow, deliveryDateStr } });
 
