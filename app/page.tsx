@@ -1,5 +1,4 @@
 'use client';
-export const dynamic = 'force-dynamic';
 import { useState } from 'react';
 import { STORES, CATEGORIES } from '../lib/config';
 
@@ -38,32 +37,12 @@ export default function Home() {
     const hasItems = Object.values(orders).some(qty => qty > 0);
     if (!hasItems) { alert('Please order at least one item!'); return; }
 
-    // ── Delivery date calculated in browser (local time = ET for managers) ──
-    // Before 12PM → delivery = today   (catches last night late orders)
-    // After  12PM → delivery = tomorrow
-    // Saturday    → Monday (+2)
-    // Sunday      → Monday (+1)
-    // Safety: never land on Sunday
-    const now = new Date();
-    const hour = now.getHours();
-    const dow  = now.getDay(); // 0=Sun, 1=Mon ... 6=Sat
-    const delivery = new Date(now);
-    delivery.setHours(0, 0, 0, 0);
-    if (dow === 6)        delivery.setDate(delivery.getDate() + 2); // Sat → Mon
-    else if (dow === 0)   delivery.setDate(delivery.getDate() + 1); // Sun → Mon
-    else if (hour >= 12)  delivery.setDate(delivery.getDate() + 1); // Weekday PM → tomorrow
-    if (delivery.getDay() === 0) delivery.setDate(delivery.getDate() + 1); // safety
-    const deliveryDateStr = (delivery.getMonth() + 1) + '/' + delivery.getDate() + '/' + delivery.getFullYear();
-
-    alert('DEBUG delivery date: ' + deliveryDateStr + ' | dow=' + dow + ' | hour=' + hour);
-
-
     setLoading(true);
     try {
       const response = await fetch('/api/submit-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ store, orders, onHand, deliveryDateStr }),
+        body: JSON.stringify({ store, orders, onHand }),
       });
       const result = await response.json();
       if (result.success) {
@@ -83,7 +62,7 @@ export default function Home() {
       <div style={{ maxWidth: 480, margin: '0 auto', padding: '40px 20px', textAlign: 'center' }}>
         <div style={{ fontSize: 48, marginBottom: 16 }}>✅</div>
         <h2 style={{ color: '#048A81', marginBottom: 8 }}>Order Submitted!</h2>
-        <p style={{ color: '#666', marginBottom: 24 }}>{store} — Order Submitted</p>
+        <p style={{ color: '#666', marginBottom: 24 }}>{store} — {new Date().toLocaleDateString()}</p>
         <button onClick={() => { setSubmitted(false); setOrders({}); setOnHand({}); setStore(''); }}
           style={{ background: '#048A81', color: '#fff', border: 'none', borderRadius: 10, padding: '12px 32px', fontSize: 15, cursor: 'pointer' }}>
           New Order
@@ -108,7 +87,7 @@ export default function Home() {
             <span style={{ color: '#fff', fontWeight: 700, fontSize: 16 }}>CK Inventory</span>
           </div>
           <span style={{ background: '#048A81', color: '#fff', fontSize: 11, padding: '3px 10px', borderRadius: 20 }}>
-            Today
+            {new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
           </span>
         </div>
         <select key={store} value={store} onChange={e => setStore(e.target.value)}
