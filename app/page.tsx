@@ -37,12 +37,29 @@ export default function Home() {
     const hasItems = Object.values(orders).some(qty => qty > 0);
     if (!hasItems) { alert('Please order at least one item!'); return; }
 
+    // ── Delivery date calculated in browser (local time = ET for managers) ──
+    // Before 12PM → delivery = today   (catches last night late orders)
+    // After  12PM → delivery = tomorrow
+    // Saturday    → Monday (+2)
+    // Sunday      → Monday (+1)
+    // Safety: never land on Sunday
+    const now = new Date();
+    const hour = now.getHours();
+    const dow  = now.getDay(); // 0=Sun, 1=Mon ... 6=Sat
+    const delivery = new Date(now);
+    delivery.setHours(0, 0, 0, 0);
+    if (dow === 6)        delivery.setDate(delivery.getDate() + 2); // Sat → Mon
+    else if (dow === 0)   delivery.setDate(delivery.getDate() + 1); // Sun → Mon
+    else if (hour >= 12)  delivery.setDate(delivery.getDate() + 1); // Weekday PM → tomorrow
+    if (delivery.getDay() === 0) delivery.setDate(delivery.getDate() + 1); // safety
+    const deliveryDateStr = (delivery.getMonth() + 1) + '/' + delivery.getDate() + '/' + delivery.getFullYear();
+
     setLoading(true);
     try {
       const response = await fetch('/api/submit-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ store, orders, onHand }),
+        body: JSON.stringify({ store, orders, onHand, deliveryDateStr }),
       });
       const result = await response.json();
       if (result.success) {

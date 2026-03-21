@@ -1,32 +1,13 @@
 import { google } from 'googleapis';
 import { CATEGORIES, SHEET_COLUMNS } from '../../../lib/config';
 
-// ── Reliable Eastern Time helper using Intl.DateTimeFormat ───
-function getEasternDateParts() {
-  const now = new Date();
-  const formatter = new Intl.DateTimeFormat('en-US', {
-    timeZone: 'America/New_York',
-    year:   'numeric',
-    month:  '2-digit',
-    day:    '2-digit',
-    hour:   '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  });
-  const parts = formatter.formatToParts(now);
-  const get = (type) => parseInt(parts.find(p => p.type === type).value);
-  const year  = get('year');
-  const month = get('month'); // 1-based
-  const day   = get('day');
-  const hour  = get('hour'); // 0-23
-  const dow   = new Date(year, month - 1, day).getDay(); // 0=Sun ... 6=Sat
-  return { year, month, day, hour, dow };
-}
-
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { store, orders, onHand } = body;
+
+    // deliveryDateStr is now calculated on the client (browser) in local time
+    // so no timezone issues on the server side
+    const { store, orders, onHand, deliveryDateStr } = body;
 
     const auth = new google.auth.GoogleAuth({
       credentials: {
@@ -40,40 +21,6 @@ export async function POST(request) {
     const spreadsheetId = '15ZepcPCQjBkghOUw2Jle786BnV38hb0TXjT3bWNUNYI';
 
     const timestamp = new Date().toLocaleString('en-US', { timeZone: 'America/New_York' });
-
-    // ── Delivery date (Eastern Time) ──────────────────────────
-    // Before 12PM ET → delivery = today  (late night orders still count)
-    // After  12PM ET → delivery = tomorrow
-    // Saturday → Monday (+2)
-    // Sunday   → Monday (+1)
-    // Safety:  never land on Sunday
-    const { year, month, day, hour, dow } = getEasternDateParts();
-
-    // Start with today in ET as a plain date (no timezone shift risk)
-    const deliveryDate = new Date(year, month - 1, day); // midnight local, no UTC issues
-
-    if (dow === 6) {
-      // Saturday → Monday
-      deliveryDate.setDate(deliveryDate.getDate() + 2);
-    } else if (dow === 0) {
-      // Sunday → Monday
-      deliveryDate.setDate(deliveryDate.getDate() + 1);
-    } else if (hour >= 12) {
-      // Weekday after noon → tomorrow
-      deliveryDate.setDate(deliveryDate.getDate() + 1);
-    }
-    // Weekday before noon → today (no change)
-
-    // Safety: never land on Sunday
-    if (deliveryDate.getDay() === 0) {
-      deliveryDate.setDate(deliveryDate.getDate() + 1);
-    }
-
-    // Format as M/D/YYYY to match existing sheet format
-    const m = deliveryDate.getMonth() + 1;
-    const d = deliveryDate.getDate();
-    const y = deliveryDate.getFullYear();
-    const deliveryDateStr = m + '/' + d + '/' + y;
 
     // Map order quantities to exact sheet column order
     const itemValues = SHEET_COLUMNS.map(col => orders[col] || '');
