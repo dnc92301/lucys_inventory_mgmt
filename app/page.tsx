@@ -27,7 +27,6 @@ export default function Home() {
   const [onHand, setOnHand] = useState<Record<string, number>>({});
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [test, setTest] = useState(0);
 
   const setOrderQty = (item: string, val: number) => setOrders(o => ({ ...o, [item]: val }));
   const setOnHandQty = (item: string, val: number) => setOnHand(o => ({ ...o, [item]: val }));
@@ -75,9 +74,6 @@ export default function Home() {
     <div style={{ maxWidth: 480, margin: '0 auto', padding: '0 0 80px', fontFamily: 'system-ui, sans-serif' }}>
 
       {/* DEBUG - remove after testing */}
-      <div style={{ background: 'red', color: 'white', padding: 20, fontSize: 20, textAlign: 'center' }} onClick={() => setTest(t => t + 1)}>
-      </div>
-
       {/* Header */}
       <div style={{ background: '#1A2A3A', padding: '16px 20px', position: 'sticky', top: 0, zIndex: 10 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
