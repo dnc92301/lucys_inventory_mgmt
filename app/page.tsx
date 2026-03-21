@@ -76,7 +76,6 @@ export default function Home() {
 
       {/* DEBUG - remove after testing */}
       <div style={{ background: 'red', color: 'white', padding: 20, fontSize: 20, textAlign: 'center' }} onClick={() => setTest(t => t + 1)}>
-        TAP ME: {test}
       </div>
 
       {/* Header */}
