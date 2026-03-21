@@ -29,7 +29,7 @@ export async function POST(request) {
 
     const delivery = new Date(etYear, etMonth - 1, etDay);
 
-    
+
     if (etDow === 6 && etHour >= 12) {
       delivery.setDate(delivery.getDate() + 2);      // Sat after noon → Mon
     } else if (etDow === 6 && etHour < 12) {
@@ -70,7 +70,7 @@ export async function POST(request) {
       resource: { values: [row] },
     });
 
-    fetch('https://script.google.com/macros/s/AKfycbzUFyOUasxAuuDnjHj9Uqaopu6ZwM1tNUp_2r6dQW8g8XUF57zVCzsm1IU6CN88ko3p/exec');
+    //fetch('https://script.google.com/macros/s/AKfycbzUFyOUasxAuuDnjHj9Uqaopu6ZwM1tNUp_2r6dQW8g8XUF57zVCzsm1IU6CN88ko3p/exec');
 
     return Response.json({ success: true, debug: { etDateStr, etHour, etDow, deliveryDateStr } });
 
