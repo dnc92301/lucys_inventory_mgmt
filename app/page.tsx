@@ -4,7 +4,7 @@ import { STORES, CATEGORIES } from '../lib/config';
 
 function Counter({ value, onChange, color }: { value: number, onChange: (v: number) => void, color?: string }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: color || '#f3f4f6', borderRadius: 8, padding: '4px 6px', minWidth: 80 }}>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: color || '#f3f4f6', borderRadius: 8, padding: '4px 2px', minWidth: 76 }}>
       <button
         onClick={() => onChange(Math.max(0, value - 1))}
         style={{ background: 'none', border: 'none', fontSize: 22, cursor: 'pointer', color: '#1A2A3A', padding: '8px 10px', minWidth: 44, minHeight: 44, touchAction: 'manipulation' }}>−</button>
@@ -253,12 +253,12 @@ export default function Home() {
           <div style={{ background: '#2E4057', padding: '8px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ color: '#fff', fontWeight: 600, fontSize: 13, flex: 1 }}>{cat.name}</span>
             {cat.hasOnHand ? (
-              <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
-                <span style={{ color: '#aaa', fontSize: 10, width: 92, textAlign: 'center' }}>On Hand</span>
-                <span style={{ color: '#aaa', fontSize: 10, width: 92, textAlign: 'center' }}>Order Qty</span>
+              <div style={{ display: 'flex', gap: 6, flexShrink: 0 }}>
+                <span style={{ color: '#aaa', fontSize: 10, width: 76, textAlign: 'center' }}>On Hand</span>
+                <span style={{ color: '#aaa', fontSize: 10, width: 76, textAlign: 'center' }}>Order Qty</span>
               </div>
             ) : (
-              <span style={{ color: '#aaa', fontSize: 10, width: 92, textAlign: 'center', flexShrink: 0 }}>Order Qty</span>
+              <span style={{ color: '#aaa', fontSize: 10, width: 76, textAlign: 'center', flexShrink: 0 }}>Order Qty</span>
             )}
           </div>
 
@@ -266,13 +266,13 @@ export default function Home() {
           {cat.items.map((item: string, ii: number) => (
             <div key={ii} style={{ padding: '8px 20px', background: ii % 2 === 0 ? '#f9fafb' : '#fff', borderBottom: '0.5px solid #eee', display: 'flex', alignItems: 'center' }}>
               <p style={{ margin: 0, fontSize: 13, fontWeight: 500, color: '#1A2A3A', flex: 1 }}>{item}</p>
-              <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexShrink: 0 }}>
+              <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexShrink: 0 }}>
                 {cat.hasOnHand && (
-                  <div style={{ width: 92, display: 'flex', justifyContent: 'center' }}>
+                  <div style={{ width: 76, display: 'flex', justifyContent: 'center' }}>
                     <Counter value={onHand[item] || 0} onChange={v => setOnHandQty(item, v)} color="#f3f4f6" />
                   </div>
                 )}
-                <div style={{ width: 92, display: 'flex', justifyContent: 'center' }}>
+                <div style={{ width: 76, display: 'flex', justifyContent: 'center' }}>
                   <Counter value={orders[item] || 0} onChange={v => setOrderQty(item, v)} color="#e6f7f4" />
                 </div>
               </div>
