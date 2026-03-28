@@ -4,10 +4,10 @@ import { STORES, CATEGORIES } from '../lib/config';
 
 function Counter({ value, onChange, color }: { value: number, onChange: (v: number) => void, color?: string }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: color || '#f3f4f6', borderRadius: 8, padding: '2px 0', width: '100%' }}>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: color || '#f3f4f6', borderRadius: 8, width: 100 }}>
       <button
         onClick={() => onChange(Math.max(0, value - 1))}
-        style={{ background: 'none', border: 'none', fontSize: 20, cursor: 'pointer', color: '#1A2A3A', padding: '6px 8px', minWidth: 36, minHeight: 40, touchAction: 'manipulation' }}>−</button>
+        style={{ background: 'none', border: 'none', fontSize: 20, cursor: 'pointer', color: '#1A2A3A', padding: '8px', minWidth: 32, minHeight: 40, touchAction: 'manipulation' }}>−</button>
       <input
         type="number"
         value={value}
@@ -16,7 +16,7 @@ function Counter({ value, onChange, color }: { value: number, onChange: (v: numb
       />
       <button
         onClick={() => onChange(value + 1)}
-        style={{ background: 'none', border: 'none', fontSize: 20, cursor: 'pointer', color: '#1A2A3A', padding: '6px 8px', minWidth: 36, minHeight: 40, touchAction: 'manipulation' }}>+</button>
+        style={{ background: 'none', border: 'none', fontSize: 20, cursor: 'pointer', color: '#1A2A3A', padding: '8px', minWidth: 32, minHeight: 40, touchAction: 'manipulation' }}>+</button>
     </div>
   );
 }
@@ -254,11 +254,11 @@ export default function Home() {
             <span style={{ color: '#fff', fontWeight: 600, fontSize: 13, flex: 1 }}>{cat.name}</span>
             {cat.hasOnHand ? (
               <div style={{ display: 'flex', gap: 6, flexShrink: 0 }}>
-                <span style={{ color: '#aaa', fontSize: 10, width: 76, textAlign: 'center' }}>On Hand</span>
-                <span style={{ color: '#aaa', fontSize: 10, width: 76, textAlign: 'center' }}>Order Qty</span>
+                <span style={{ color: '#aaa', fontSize: 10, width: 100, textAlign: 'center' }}>On Hand</span>
+                <span style={{ color: '#aaa', fontSize: 10, width: 100, textAlign: 'center' }}>Order Qty</span>
               </div>
             ) : (
-              <span style={{ color: '#aaa', fontSize: 10, width: 76, textAlign: 'center', flexShrink: 0 }}>Order Qty</span>
+              <span style={{ color: '#aaa', fontSize: 10, width: 100, textAlign: 'center', flexShrink: 0 }}>Order Qty</span>
             )}
           </div>
 
@@ -268,11 +268,11 @@ export default function Home() {
               <p style={{ margin: 0, fontSize: 13, fontWeight: 500, color: '#1A2A3A', flex: 1 }}>{item}</p>
               <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexShrink: 0 }}>
                 {cat.hasOnHand && (
-                  <div style={{ width: 76, display: 'flex', justifyContent: 'center' }}>
+                  <div style={{ width: 100 }}>
                     <Counter value={onHand[item] || 0} onChange={v => setOnHandQty(item, v)} color="#f3f4f6" />
                   </div>
                 )}
-                <div style={{ width: 76, display: 'flex', justifyContent: 'center' }}>
+                <div style={{ width: 100 }}>
                   <Counter value={orders[item] || 0} onChange={v => setOrderQty(item, v)} color="#e6f7f4" />
                 </div>
               </div>
