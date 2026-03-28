@@ -180,6 +180,11 @@ export default function Home() {
   const [screen, setScreen] = useState<'form' | 'review' | 'success'>('form');
   const [loading, setLoading] = useState(false);
   const [deliveryDateStr, setDeliveryDateStr] = useState('');
+  const COLLAPSED_BY_DEFAULT = ['🧹 Cleaning', '🔖 Infrequent'];
+  const [collapsed, setCollapsed] = useState<Record<string, boolean>>(
+    Object.fromEntries(COLLAPSED_BY_DEFAULT.map(c => [c, true]))
+  );
+  const toggleCat = (name: string) => setCollapsed(c => ({ ...c, [name]: !c[name] }));
 
   const setOrderQty = (item: string, val: number) => setOrders(o => ({ ...o, [item]: val }));
   const setOnHandQty = (item: string, val: number) => setOnHand(o => ({ ...o, [item]: val }));
@@ -250,20 +255,23 @@ export default function Home() {
       {CATEGORIES.map((cat: any, ci: number) => (
         <div key={ci}>
           {/* Category header with static On Hand / Order Qty labels */}
-          <div style={{ background: '#2E4057', padding: '8px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div onClick={() => toggleCat(cat.name)} style={{ background: '#2E4057', padding: '8px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer' }}>
             <span style={{ color: '#fff', fontWeight: 600, fontSize: 13, flex: 1 }}>{cat.name}</span>
-            {cat.hasOnHand ? (
-              <div style={{ display: 'flex', gap: 6, flexShrink: 0 }}>
-                <span style={{ color: '#aaa', fontSize: 10, width: 100, textAlign: 'center' }}>On Hand</span>
-                <span style={{ color: '#aaa', fontSize: 10, width: 100, textAlign: 'center' }}>Order Qty</span>
-              </div>
-            ) : (
-              <span style={{ color: '#aaa', fontSize: 10, width: 100, textAlign: 'center', flexShrink: 0 }}>Order Qty</span>
+            {!collapsed[cat.name] && (
+              cat.hasOnHand ? (
+                <div style={{ display: 'flex', gap: 6, flexShrink: 0 }}>
+                  <span style={{ color: '#aaa', fontSize: 10, width: 100, textAlign: 'center' }}>On Hand</span>
+                  <span style={{ color: '#aaa', fontSize: 10, width: 100, textAlign: 'center' }}>Order Qty</span>
+                </div>
+              ) : (
+                <span style={{ color: '#aaa', fontSize: 10, width: 100, textAlign: 'center', flexShrink: 0 }}>Order Qty</span>
+              )
             )}
+            <span style={{ color: '#aaa', fontSize: 12, marginLeft: 8, flexShrink: 0 }}>{collapsed[cat.name] ? '▶' : '▼'}</span>
           </div>
 
-          {/* Item rows — no repeated labels */}
-          {cat.items.map((item: string, ii: number) => (
+          {/* Item rows — hidden when collapsed */}
+          {!collapsed[cat.name] && cat.items.map((item: string, ii: number) => (
             <div key={ii} style={{ padding: '8px 20px', background: ii % 2 === 0 ? '#f9fafb' : '#fff', borderBottom: '0.5px solid #eee', display: 'flex', alignItems: 'center' }}>
               <p style={{ margin: 0, fontSize: 13, fontWeight: 500, color: '#1A2A3A', flex: 1 }}>{item}</p>
               <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexShrink: 0 }}>
