@@ -4,19 +4,19 @@ import { STORES, CATEGORIES } from '../lib/config';
 
 function Counter({ value, onChange, color }: { value: number, onChange: (v: number) => void, color?: string }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: color || '#f3f4f6', borderRadius: 8, padding: '4px 2px', minWidth: 76 }}>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: color || '#f3f4f6', borderRadius: 8, padding: '2px 0', width: '100%' }}>
       <button
         onClick={() => onChange(Math.max(0, value - 1))}
-        style={{ background: 'none', border: 'none', fontSize: 22, cursor: 'pointer', color: '#1A2A3A', padding: '8px 10px', minWidth: 44, minHeight: 44, touchAction: 'manipulation' }}>−</button>
+        style={{ background: 'none', border: 'none', fontSize: 20, cursor: 'pointer', color: '#1A2A3A', padding: '6px 8px', minWidth: 36, minHeight: 40, touchAction: 'manipulation' }}>−</button>
       <input
         type="number"
         value={value}
         onChange={e => onChange(Math.max(0, parseInt(e.target.value) || 0))}
-        style={{ width: 40, textAlign: 'center', fontSize: 18, fontWeight: 800, border: 'none', background: 'transparent', WebkitAppearance: 'none', color: '#1A2A3A' }}
+        style={{ width: 28, textAlign: 'center', fontSize: 16, fontWeight: 800, border: 'none', background: 'transparent', WebkitAppearance: 'none', color: '#1A2A3A' }}
       />
       <button
         onClick={() => onChange(value + 1)}
-        style={{ background: 'none', border: 'none', fontSize: 22, cursor: 'pointer', color: '#1A2A3A', padding: '8px 10px', minWidth: 44, minHeight: 44, touchAction: 'manipulation' }}>+</button>
+        style={{ background: 'none', border: 'none', fontSize: 20, cursor: 'pointer', color: '#1A2A3A', padding: '6px 8px', minWidth: 36, minHeight: 40, touchAction: 'manipulation' }}>+</button>
     </div>
   );
 }
