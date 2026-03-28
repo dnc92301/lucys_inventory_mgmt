@@ -251,26 +251,30 @@ export default function Home() {
         <div key={ci}>
           {/* Category header with static On Hand / Order Qty labels */}
           <div style={{ background: '#2E4057', padding: '8px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ color: '#fff', fontWeight: 600, fontSize: 13 }}>{cat.name}</span>
+            <span style={{ color: '#fff', fontWeight: 600, fontSize: 13, flex: 1 }}>{cat.name}</span>
             {cat.hasOnHand ? (
-              <div style={{ display: 'flex', gap: 8 }}>
-                <span style={{ color: '#aaa', fontSize: 10, width: 80, textAlign: 'center' }}>On Hand</span>
-                <span style={{ color: '#aaa', fontSize: 10, width: 80, textAlign: 'center' }}>Order Qty</span>
+              <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
+                <span style={{ color: '#aaa', fontSize: 10, width: 92, textAlign: 'center' }}>On Hand</span>
+                <span style={{ color: '#aaa', fontSize: 10, width: 92, textAlign: 'center' }}>Order Qty</span>
               </div>
             ) : (
-              <span style={{ color: '#aaa', fontSize: 10, width: 80, textAlign: 'center' }}>Order Qty</span>
+              <span style={{ color: '#aaa', fontSize: 10, width: 92, textAlign: 'center', flexShrink: 0 }}>Order Qty</span>
             )}
           </div>
 
           {/* Item rows — no repeated labels */}
           {cat.items.map((item: string, ii: number) => (
-            <div key={ii} style={{ padding: '8px 20px', background: ii % 2 === 0 ? '#f9fafb' : '#fff', borderBottom: '0.5px solid #eee', display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div key={ii} style={{ padding: '8px 20px', background: ii % 2 === 0 ? '#f9fafb' : '#fff', borderBottom: '0.5px solid #eee', display: 'flex', alignItems: 'center' }}>
               <p style={{ margin: 0, fontSize: 13, fontWeight: 500, color: '#1A2A3A', flex: 1 }}>{item}</p>
-              <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+              <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexShrink: 0 }}>
                 {cat.hasOnHand && (
-                  <Counter value={onHand[item] || 0} onChange={v => setOnHandQty(item, v)} color="#f3f4f6" />
+                  <div style={{ width: 92, display: 'flex', justifyContent: 'center' }}>
+                    <Counter value={onHand[item] || 0} onChange={v => setOnHandQty(item, v)} color="#f3f4f6" />
+                  </div>
                 )}
-                <Counter value={orders[item] || 0} onChange={v => setOrderQty(item, v)} color="#e6f7f4" />
+                <div style={{ width: 92, display: 'flex', justifyContent: 'center' }}>
+                  <Counter value={orders[item] || 0} onChange={v => setOrderQty(item, v)} color="#e6f7f4" />
+                </div>
               </div>
             </div>
           ))}
