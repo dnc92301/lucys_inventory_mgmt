@@ -233,7 +233,7 @@ export default function Home() {
       {/* Header */}
       <div style={{ background: '#1A2A3A', padding: '16px 20px', position: 'sticky', top: 0, zIndex: 10 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginRight: 4 }}>
             <img src="/lucys_logo.png" alt="Lucy's" style={{ height: 36, width: 36, objectFit: 'contain' }} />
             <span style={{ color: '#fff', fontWeight: 700, fontSize: 16 }}>CK Inventory</span>
           </div>
