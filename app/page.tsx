@@ -2,6 +2,15 @@
 import { useState } from 'react';
 import { STORES, CATEGORIES } from '../lib/config';
 
+const printStyles = `
+@media print {
+  body * { visibility: hidden; }
+  #print-area, #print-area * { visibility: visible; }
+  #print-area { position: absolute; left: 0; top: 0; width: 100%; }
+  .no-print { display: none !important; }
+}
+`;
+
 function Counter({ value, onChange, color }: { value: number, onChange: (v: number) => void, color?: string }) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: color || '#f3f4f6', borderRadius: 8, width: 100 }}>
@@ -120,7 +129,8 @@ function SuccessScreen({ store, orders, onHand, deliveryDateStr, onNewOrder }: {
 
   return (
     <div style={{ maxWidth: 480, margin: '0 auto', padding: '0 0 100px', fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ background: '#048A81', padding: '28px 20px', textAlign: 'center' }}>
+      <style>{printStyles}</style>
+      <div id="print-area">
         <div style={{ fontSize: 48, marginBottom: 8 }}>✅</div>
         <h2 style={{ color: '#fff', margin: '0 0 4px', fontSize: 20, fontWeight: 700 }}>Order Submitted!</h2>
         <p style={{ color: 'rgba(255,255,255,0.85)', margin: 0, fontSize: 13 }}>{store} · Delivery: {deliveryDateStr}</p>
@@ -163,11 +173,19 @@ function SuccessScreen({ store, orders, onHand, deliveryDateStr, onNewOrder }: {
         </div>
       ))}
 
-      <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, padding: '12px 20px', background: '#fff', borderTop: '0.5px solid #eee' }}>
+      </div>
+      <div className="no-print" style={{ position: 'fixed', bottom: 0, left: 0, right: 0, padding: '12px 20px', background: '#fff', borderTop: '0.5px solid #eee' }}>
+        <div style={{ display: 'flex', gap: 10, marginBottom: 8 }}>
+          <button onClick={() => window.print()}
+            style={{ flex: 1, background: '#fff', color: '#048A81', border: '1.5px solid #048A81', borderRadius: 12, padding: '12px', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>
+            🖨️ Print / Save PDF
+          </button>
+        </div>
         <button onClick={onNewOrder} style={{ width: '100%', background: '#1A2A3A', color: '#fff', border: 'none', borderRadius: 12, padding: '14px', fontSize: 15, fontWeight: 600, cursor: 'pointer' }}>
           + New Order
         </button>
       </div>
+    </div>
     </div>
   );
 }
