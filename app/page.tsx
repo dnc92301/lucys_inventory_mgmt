@@ -186,7 +186,6 @@ function SuccessScreen({ store, orders, onHand, deliveryDateStr, onNewOrder }: {
         </button>
       </div>
     </div>
-    </div>
   );
 }
 
