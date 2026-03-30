@@ -77,7 +77,7 @@ export default function CommissaryPage() {
         <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr 1fr 0.8fr', background: '#2E4057', padding: '8px 12px', gap: 4 }}>
           <span style={{ color: '#fff', fontWeight: 600, fontSize: 12 }}>Item</span>
           {STORES.map((s, i) => (
-            <span key={s} style={{ color: '#fff', fontWeight: 600, fontSize: 11, textAlign: 'center',
+            <span key={s} style={{ fontWeight: 600, fontSize: 11, textAlign: 'center',
               color: ['#048A81','#E63946','#F4A261','#2A9D8F','#6A4C93'][i] }}>
               {s}
             </span>
