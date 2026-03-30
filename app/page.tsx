@@ -174,7 +174,7 @@ function SuccessScreen({ store, orders, onHand, deliveryDateStr, onNewOrder }: {
       ))}
 
       </div>
-      <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, padding: '12px 20px', background: '#fff', borderTop: '0.5px solid #eee' }} id="no-print">
+      <div id="no-print" style={{ position: 'fixed', bottom: 0, left: 0, right: 0, padding: '12px 20px', background: '#fff', borderTop: '0.5px solid #eee' }}>
         <div style={{ display: 'flex', gap: 10, marginBottom: 8 }}>
           <button onClick={() => window.print()}
             style={{ flex: 1, background: '#fff', color: '#048A81', border: '1.5px solid #048A81', borderRadius: 12, padding: '12px', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>
