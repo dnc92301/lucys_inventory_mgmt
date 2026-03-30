@@ -39,8 +39,9 @@ export default function CommissaryPage() {
   // Calculate store totals
   const storeTotals: Record<string, number> = {};
   STORES.forEach(s => {
-    storeTotals[s] = Object.values(orderMap[s] || {}).reduce((sum: number, v: any) => {
-      if (typeof v === 'number' && !String(v).includes('On Hand')) return sum + v;
+    storeTotals[s] = Object.entries(orderMap[s] || {}).reduce((sum: number, [key, v]: [string, any]) => {
+      if (key.includes('On Hand')) return sum;
+      if (typeof v === 'number') return sum + v;
       return sum;
     }, 0);
   });
