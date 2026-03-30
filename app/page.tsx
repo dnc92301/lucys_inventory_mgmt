@@ -7,7 +7,6 @@ const printStyles = `
   body * { visibility: hidden; }
   #print-area, #print-area * { visibility: visible; }
   #print-area { position: absolute; left: 0; top: 0; width: 100%; }
-  #no-print { display: none !important; }
 }
 `;
 
@@ -131,50 +130,48 @@ function SuccessScreen({ store, orders, onHand, deliveryDateStr, onNewOrder }: {
     <div style={{ maxWidth: 480, margin: '0 auto', padding: '0 0 100px', fontFamily: 'system-ui, sans-serif' }}>
       <style>{printStyles}</style>
       <div id="print-area">
-        <div style={{ fontSize: 48, marginBottom: 8 }}>✅</div>
-        <h2 style={{ color: '#fff', margin: '0 0 4px', fontSize: 20, fontWeight: 700 }}>Order Submitted!</h2>
-        <p style={{ color: 'rgba(255,255,255,0.85)', margin: 0, fontSize: 13 }}>{store} · Delivery: {deliveryDateStr}</p>
-        <p style={{ color: 'rgba(255,255,255,0.7)', margin: '4px 0 0', fontSize: 12 }}>
-          {totalItems} item{totalItems !== 1 ? 's' : ''} ordered · {new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
-        </p>
-      </div>
-
-      <div style={{ background: '#E8F5E9', borderLeft: '4px solid #048A81', padding: '12px 20px' }}>
-        <p style={{ margin: 0, fontSize: 13, color: '#2E7D32', fontWeight: 600 }}>📋 Order receipt — screenshot for your records</p>
-        <p style={{ margin: '4px 0 0', fontSize: 12, color: '#388E3C' }}>Compare against your delivery when items arrive</p>
-      </div>
-
-      {Object.entries(grouped).map(([catName, items]) => (
-        <div key={catName}>
-          <div style={{ background: '#2E4057', padding: '8px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ color: '#fff', fontWeight: 600, fontSize: 13 }}>{catName}</span>
-            {items[0].hasOnHand && (
-              <div style={{ display: 'flex', gap: 24 }}>
-                <span style={{ color: '#aaa', fontSize: 10 }}>On Hand</span>
-                <span style={{ color: '#aaa', fontSize: 10 }}>Order Qty</span>
-              </div>
-            )}
-          </div>
-          {items.map((item, idx) => (
-            <div key={item.item} style={{ padding: '10px 20px', background: idx % 2 === 0 ? '#f9fafb' : '#fff', borderBottom: '0.5px solid #eee', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <p style={{ margin: 0, fontSize: 13, fontWeight: 500, color: '#1A2A3A', flex: 1 }}>{item.item}</p>
-              <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-                {item.hasOnHand && (
-                  <div style={{ background: '#f3f4f6', borderRadius: 20, padding: '4px 14px', fontWeight: 700, fontSize: 15, minWidth: 40, textAlign: 'center', color: '#666' }}>
-                    {item.onHand}
+        <div style={{ background: '#048A81', padding: '28px 20px', textAlign: 'center' }}>
+          <div style={{ fontSize: 48, marginBottom: 8 }}>✅</div>
+          <h2 style={{ color: '#fff', margin: '0 0 4px', fontSize: 20, fontWeight: 700 }}>Order Submitted!</h2>
+          <p style={{ color: 'rgba(255,255,255,0.85)', margin: 0, fontSize: 13 }}>{store} · Delivery: {deliveryDateStr}</p>
+          <p style={{ color: 'rgba(255,255,255,0.7)', margin: '4px 0 0', fontSize: 12 }}>
+            {totalItems} item{totalItems !== 1 ? 's' : ''} ordered · {new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
+          </p>
+        </div>
+        <div style={{ background: '#E8F5E9', borderLeft: '4px solid #048A81', padding: '12px 20px' }}>
+          <p style={{ margin: 0, fontSize: 13, color: '#2E7D32', fontWeight: 600 }}>📋 Order receipt — screenshot for your records</p>
+          <p style={{ margin: '4px 0 0', fontSize: 12, color: '#388E3C' }}>Compare against your delivery when items arrive</p>
+        </div>
+        {Object.entries(grouped).map(([catName, items]) => (
+          <div key={catName}>
+            <div style={{ background: '#2E4057', padding: '8px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ color: '#fff', fontWeight: 600, fontSize: 13 }}>{catName}</span>
+              {items[0].hasOnHand && (
+                <div style={{ display: 'flex', gap: 24 }}>
+                  <span style={{ color: '#aaa', fontSize: 10 }}>On Hand</span>
+                  <span style={{ color: '#aaa', fontSize: 10 }}>Order Qty</span>
+                </div>
+              )}
+            </div>
+            {items.map((item, idx) => (
+              <div key={item.item} style={{ padding: '10px 20px', background: idx % 2 === 0 ? '#f9fafb' : '#fff', borderBottom: '0.5px solid #eee', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <p style={{ margin: 0, fontSize: 13, fontWeight: 500, color: '#1A2A3A', flex: 1 }}>{item.item}</p>
+                <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+                  {item.hasOnHand && (
+                    <div style={{ background: '#f3f4f6', borderRadius: 20, padding: '4px 14px', fontWeight: 700, fontSize: 15, minWidth: 40, textAlign: 'center', color: '#666' }}>
+                      {item.onHand}
+                    </div>
+                  )}
+                  <div style={{ background: '#E8F5E9', color: '#2E7D32', borderRadius: 20, padding: '4px 14px', fontWeight: 800, fontSize: 16, minWidth: 40, textAlign: 'center', border: '1.5px solid #A5D6A7' }}>
+                    {item.qty}
                   </div>
-                )}
-                <div style={{ background: '#E8F5E9', color: '#2E7D32', borderRadius: 20, padding: '4px 14px', fontWeight: 800, fontSize: 16, minWidth: 40, textAlign: 'center', border: '1.5px solid #A5D6A7' }}>
-                  {item.qty}
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-      ))}
-
+            ))}
+          </div>
+        ))}
       </div>
-      <div id="no-print" style={{ position: 'fixed', bottom: 0, left: 0, right: 0, padding: '12px 20px', background: '#fff', borderTop: '0.5px solid #eee' }}>
+      <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, padding: '12px 20px', background: '#fff', borderTop: '0.5px solid #eee' }}>
         <div style={{ display: 'flex', gap: 10, marginBottom: 8 }}>
           <button onClick={() => window.print()}
             style={{ flex: 1, background: '#fff', color: '#048A81', border: '1.5px solid #048A81', borderRadius: 12, padding: '12px', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>
