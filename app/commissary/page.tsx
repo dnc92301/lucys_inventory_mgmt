@@ -36,14 +36,15 @@ export default function CommissaryPage() {
 
   const { categories, orderMap, deliveryLabel } = data;
 
-  // Calculate store totals
+  // Calculate store totals from actual items only
   const storeTotals: Record<string, number> = {};
-  STORES.forEach(s => {
-    storeTotals[s] = Object.entries(orderMap[s] || {}).reduce((sum: number, [key, v]: [string, any]) => {
-      if (key.includes('On Hand')) return sum;
-      if (typeof v === 'number') return sum + v;
-      return sum;
-    }, 0);
+  STORES.forEach(s => { storeTotals[s] = 0; });
+  categories.forEach((cat: any) => {
+    cat.items.forEach((item: string) => {
+      STORES.forEach(s => {
+        storeTotals[s] += orderMap[s]?.[item] || 0;
+      });
+    });
   });
 
   return (
