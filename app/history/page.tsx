@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { STORES } from '../lib/config';
+import { STORES } from '../../lib/config';
 
 const WEEK_COUNT = 5;
 
