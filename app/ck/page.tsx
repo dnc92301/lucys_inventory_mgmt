@@ -60,7 +60,7 @@ export default function CommissaryPage() {
             <div style={{ color: '#FFDD00', fontSize: 11 }}>Delivery: {deliveryLabel}</div>
           </div>
         </div>
-        <button onClick={() => window.print()}
+        <button onClick={() => setTimeout(() => window.print(), 300)}
           style={{ background: '#048A81', color: '#fff', border: 'none', borderRadius: 10, padding: '10px 18px', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>
           🖨️ Print / PDF
         </button>
@@ -168,7 +168,7 @@ export default function CommissaryPage() {
 
       {/* Bottom print button - no print */}
       <div className="no-print" style={{ position: 'fixed', bottom: 0, left: 0, right: 0, padding: '12px 20px', background: '#fff', borderTop: '0.5px solid #eee' }}>
-        <button onClick={() => window.print()}
+        <button onClick={() => setTimeout(() => window.print(), 300)}
           style={{ width: '100%', background: '#1A2A3A', color: '#fff', border: 'none', borderRadius: 12, padding: '14px', fontSize: 15, fontWeight: 600, cursor: 'pointer' }}>
           🖨️ Print / Save as PDF
         </button>
