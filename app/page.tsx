@@ -139,7 +139,7 @@ function SuccessScreen({ store, orders, onHand, deliveryDateStr, onNewOrder }: {
           </p>
         </div>
         <div style={{ background: '#E8F5E9', borderLeft: '4px solid #048A81', padding: '12px 20px' }}>
-          <p style={{ margin: 0, fontSize: 13, color: '#2E7D32', fontWeight: 600 }}>📋 Order receipt — screenshot for your records</p>
+          <p style={{ margin: 0, fontSize: 13, color: '#2E7D32', fontWeight: 600 }}>📋 Order receipt</p>
           <p style={{ margin: '4px 0 0', fontSize: 12, color: '#388E3C' }}>Compare against your delivery when items arrive</p>
         </div>
         {Object.entries(grouped).map(([catName, items]) => (
