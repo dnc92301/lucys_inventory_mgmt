@@ -51,7 +51,7 @@ function ReviewScreen({ store, orders, onHand, deliveryDateStr, onBack, onConfir
           <span style={{ color: '#fff', fontWeight: 700, fontSize: 16 }}>Order Review</span>
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span style={{ color: '#FFDD00', fontWeight: 700, fontSize: 14 }}>{store}</span>
+          <span style={{ background: '#E63946', color: '#fff', fontWeight: 700, fontSize: 13, padding: '3px 10px', borderRadius: 20 }}>{store}</span>
           <span style={{ background: '#048A81', color: '#fff', fontSize: 11, padding: '3px 10px', borderRadius: 20 }}>
             Delivery: {deliveryDateStr}
           </span>
