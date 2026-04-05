@@ -2,6 +2,13 @@
 import { useState } from 'react';
 import { STORES, CATEGORIES } from '../lib/config';
 
+const USER_LOOKUP: Record<string, { name: string; store: string; role: string }> = {
+  'bennyyu898@gmail.com':   { name: 'Benny Yu',   store: 'Onderdonk', role: 'Manager' },
+  'junxingwang3@gmail.com': { name: 'Jun Wang',   store: 'Onderdonk', role: 'Assistant' },
+  'andyzheng725@gmail.com': { name: 'Andy Zheng', store: 'Onderdonk', role: 'Team Lead' },
+  'dhuyang@gmail.com':      { name: 'Dong Yang',  store: 'Onderdonk', role: 'Admin' },
+};
+
 const printStyles = `
 @media print {
   body * { visibility: hidden; }
@@ -188,6 +195,9 @@ function SuccessScreen({ store, orders, onHand, deliveryDateStr, onNewOrder }: {
 
 // ── Main Form ─────────────────────────────────────────────────
 export default function Home() {
+  const [user, setUser] = useState<{ name: string; store: string; role: string } | null>(null);
+  const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
   const [store, setStore] = useState('');
   const [orders, setOrders] = useState<Record<string, number>>({});
   const [onHand, setOnHand] = useState<Record<string, number>>({});
@@ -231,7 +241,8 @@ export default function Home() {
       const response = await fetch('/api/submit-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ store, orders, onHand, deliveryDateStr }),
+        //body: JSON.stringify({ store, orders, onHand, deliveryDateStr }),
+        body: JSON.stringify({ store, orders, onHand, deliveryDateStr, submittedBy: user?.name }),
       });
       const result = await response.json();
       if (result.success) { setScreen('success'); }
@@ -241,10 +252,39 @@ export default function Home() {
     } finally { setLoading(false); }
   };
 
-  const handleNewOrder = () => { setScreen('form'); setOrders({}); setOnHand({}); setStore(''); setDeliveryDateStr(''); };
+  //const handleNewOrder = () => { setScreen('form'); setOrders({}); setOnHand({}); setStore(''); setDeliveryDateStr(''); };
+  const handleNewOrder = () => { setScreen('form'); setOrders({}); setOnHand({}); setStore(''); setDeliveryDateStr(''); setUser(null); setEmail(''); };
 
   if (screen === 'review') return <ReviewScreen store={store} orders={orders} onHand={onHand} deliveryDateStr={deliveryDateStr} onBack={() => setScreen('form')} onConfirm={handleSubmit} loading={loading} />;
   if (screen === 'success') return <SuccessScreen store={store} orders={orders} onHand={onHand} deliveryDateStr={deliveryDateStr} onNewOrder={handleNewOrder} />;
+
+  if (!user) return (
+    <div style={{ maxWidth: 480, margin: '0 auto', padding: '40px 20px', fontFamily: 'system-ui, sans-serif' }}>
+      <div style={{ textAlign: 'center', marginBottom: 32 }}>
+        <img src="/lucys_logo.png" alt="Lucy's" style={{ height: 60, width: 60, objectFit: 'contain' }} />
+        <h2 style={{ color: '#1A2A3A', margin: '12px 0 4px', fontSize: 20 }}>Lucy's CK Inventory</h2>
+        <p style={{ color: '#888', fontSize: 13, margin: 0 }}>Enter your email to continue</p>
+      </div>
+      <input
+        type="email"
+        placeholder="your@email.com"
+        value={email}
+        onChange={e => { setEmail(e.target.value); setEmailError(''); }}
+        style={{ width: '100%', padding: '12px', borderRadius: 10, border: '1.5px solid #ccc', fontSize: 15, marginBottom: 12, boxSizing: 'border-box' as const }}
+      />
+      {emailError && <p style={{ color: '#E63946', fontSize: 13, margin: '0 0 12px' }}>{emailError}</p>}
+      <button
+        onClick={() => {
+          const found = USER_LOOKUP[email.trim().toLowerCase()];
+          if (found) { setUser(found); setStore(found.store); }
+          else { setEmailError('Email not recognized. Contact your manager.'); }
+        }}
+        style={{ width: '100%', background: '#048A81', color: '#fff', border: 'none', borderRadius: 12, padding: '14px', fontSize: 15, fontWeight: 600, cursor: 'pointer' }}
+      >
+        Continue
+      </button>
+    </div>
+  );
 
   return (
     <div style={{ maxWidth: 480, margin: '0 auto', padding: '0 0 80px', fontFamily: 'system-ui, sans-serif' }}>
