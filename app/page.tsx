@@ -120,9 +120,13 @@ function ReviewScreen({ store, orders, onHand, deliveryDateStr, onBack, onConfir
 }
 
 // ── Success Screen ────────────────────────────────────────────
-function SuccessScreen({ store, orders, onHand, deliveryDateStr, onNewOrder }: {
+// function SuccessScreen({ store, orders, onHand, deliveryDateStr, onNewOrder }: {
+//   store: string, orders: Record<string, number>, onHand: Record<string, number>,
+//   deliveryDateStr: string, onNewOrder: () => void
+
+function SuccessScreen({ store, orders, onHand, deliveryDateStr, onNewOrder, submittedBy }: {
   store: string, orders: Record<string, number>, onHand: Record<string, number>,
-  deliveryDateStr: string, onNewOrder: () => void
+  deliveryDateStr: string, onNewOrder: () => void, submittedBy: string
 }) {
   const orderedItems = CATEGORIES.flatMap((cat: any) =>
     cat.items
@@ -144,6 +148,7 @@ function SuccessScreen({ store, orders, onHand, deliveryDateStr, onNewOrder }: {
           <p style={{ color: 'rgba(255,255,255,0.7)', margin: '4px 0 0', fontSize: 12 }}>
             {totalItems} item{totalItems !== 1 ? 's' : ''} ordered · {new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
           </p>
+          <p style={{ color: 'rgba(255,255,255,0.7)', margin: '2px 0 0', fontSize: 12 }}>Submitted by: {submittedBy}</p>
         </div>
         <div style={{ background: '#E8F5E9', borderLeft: '4px solid #048A81', padding: '12px 20px' }}>
           <p style={{ margin: 0, fontSize: 13, color: '#2E7D32', fontWeight: 600 }}>📋 Order receipt</p>
@@ -256,7 +261,9 @@ export default function Home() {
   const handleNewOrder = () => { setScreen('form'); setOrders({}); setOnHand({}); setStore(''); setDeliveryDateStr(''); setUser(null); setEmail(''); };
 
   if (screen === 'review') return <ReviewScreen store={store} orders={orders} onHand={onHand} deliveryDateStr={deliveryDateStr} onBack={() => setScreen('form')} onConfirm={handleSubmit} loading={loading} />;
-  if (screen === 'success') return <SuccessScreen store={store} orders={orders} onHand={onHand} deliveryDateStr={deliveryDateStr} onNewOrder={handleNewOrder} />;
+  //if (screen === 'success') return <SuccessScreen store={store} orders={orders} onHand={onHand} deliveryDateStr={deliveryDateStr} onNewOrder={handleNewOrder} />;
+  if (screen === 'success') return <SuccessScreen store={store} orders={orders} onHand={onHand} deliveryDateStr={deliveryDateStr} onNewOrder={handleNewOrder} submittedBy={user?.name || ''} />;
+
 
   if (!user) return (
     <div style={{ maxWidth: 480, margin: '0 auto', padding: '40px 20px', fontFamily: 'system-ui, sans-serif' }}>
