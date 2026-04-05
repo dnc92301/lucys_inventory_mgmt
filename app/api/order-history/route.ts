@@ -1,7 +1,8 @@
 import { google } from 'googleapis';
 import { CATEGORIES, SHEET_COLUMNS } from '../../../lib/config';
 
-const SPREADSHEET_ID = '15ZepcPCQjBkghOUw2Jle786BnV38hb0TXjT3bWNUNYI';
+//const SPREADSHEET_ID = '15ZepcPCQjBkghOUw2Jle786BnV38hb0TXjT3bWNUNYI';
+const SPREADSHEET_ID = process.env.SPREADSHEET_ID || '15ZepcPCQjBkghOUw2Jle786BnV38hb0TXjT3bWNUNYI';
 const DAY_OFFSETS = [0, 1, 3, 4, 5, 6]; // Fri, Sat, Mon, Tue, Wed, Thu
 
 function getWeekStart(date: Date): Date {

@@ -15,7 +15,8 @@ export async function POST(request) {
     });
 
     const sheets = google.sheets({ version: 'v4', auth });
-    const spreadsheetId = '15ZepcPCQjBkghOUw2Jle786BnV38hb0TXjT3bWNUNYI';
+    //const spreadsheetId = '15ZepcPCQjBkghOUw2Jle786BnV38hb0TXjT3bWNUNYI';
+    const spreadsheetId = process.env.SPREADSHEET_ID || '15ZepcPCQjBkghOUw2Jle786BnV38hb0TXjT3bWNUNYI';
 
     const timestamp = new Date().toLocaleString('en-US', { timeZone: 'America/New_York' });
 
