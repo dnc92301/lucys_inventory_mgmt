@@ -202,7 +202,10 @@ function SuccessScreen({ store, orders, onHand, deliveryDateStr, onNewOrder, sub
 export default function Home() {
   const [user, setUser] = useState<{ name: string; store: string; role: string } | null>(null);
  //const [email, setEmail] = useState('');
-  const [email, setEmail] = useState(() => localStorage.getItem('ck_email') || '');
+  const [email, setEmail] = useState(() => {
+  if (typeof window !== 'undefined') return localStorage.getItem('ck_email') || '';
+  return '';
+  });
   const [emailError, setEmailError] = useState('');
   const [store, setStore] = useState('');
   const [orders, setOrders] = useState<Record<string, number>>({});
