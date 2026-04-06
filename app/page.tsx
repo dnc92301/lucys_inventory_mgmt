@@ -201,7 +201,8 @@ function SuccessScreen({ store, orders, onHand, deliveryDateStr, onNewOrder, sub
 // ── Main Form ─────────────────────────────────────────────────
 export default function Home() {
   const [user, setUser] = useState<{ name: string; store: string; role: string } | null>(null);
-  const [email, setEmail] = useState('');
+ //const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(() => localStorage.getItem('ck_email') || '');
   const [emailError, setEmailError] = useState('');
   const [store, setStore] = useState('');
   const [orders, setOrders] = useState<Record<string, number>>({});
@@ -283,7 +284,12 @@ export default function Home() {
       <button
         onClick={() => {
           const found = USER_LOOKUP[email.trim().toLowerCase()];
-          if (found) { setUser(found); setStore(found.store); }
+          //if (found) { setUser(found); setStore(found.store); }
+          if (found) { 
+            localStorage.setItem('ck_email', email.trim().toLowerCase());
+            setUser(found); 
+            setStore(found.store); 
+          }
           else { setEmailError('Email not recognized. Contact your manager.'); }
         }}
         style={{ width: '100%', background: '#048A81', color: '#fff', border: 'none', borderRadius: 12, padding: '14px', fontSize: 15, fontWeight: 600, cursor: 'pointer' }}
