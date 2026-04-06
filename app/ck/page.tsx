@@ -84,9 +84,13 @@ export default function CommissaryPage() {
           <div style={{ color: '#fff', fontWeight: 700, fontSize: 18 }}>🏪 CK COMMISSARY ORDER SHEET</div>
           <div style={{ color: '#FFDD00', fontSize: 13, marginTop: 4 }}>📅 Delivery: {deliveryLabel}</div>
         </div> */}
-        <div style={{ background: '#1A2A3A', padding: '16px 20px', textAlign: 'center' }}>
+        {/* <div style={{ background: '#1A2A3A', padding: '16px 20px', textAlign: 'center' }}>
           <div style={{ color: '#fff', fontWeight: 700, fontSize: 18 }}>🏪 CK COMMISSARY ORDER SHEET</div>
           <div style={{ color: '#FFDD00', fontSize: 13, marginTop: 4 }}>📅 Delivery: {deliveryLabel}</div>
+        </div> */}
+        <div style={{ background: '#1A2A3A', padding: '5px 12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ color: '#fff', fontWeight: 700, fontSize: 13 }}>🏪 CK COMMISSARY ORDER SHEET</div>
+          <div style={{ color: '#FFDD00', fontSize: 11 }}>📅 Delivery: {deliveryLabel}</div>
         </div>
 
         {/* Store header row */}
