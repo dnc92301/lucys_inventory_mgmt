@@ -9,24 +9,13 @@ const USER_LOOKUP: Record<string, { name: string; store: string; role: string }>
   'dhuyang@gmail.com':      { name: 'Dong Yang',  store: 'Onderdonk', role: 'Admin' },
 };
 
-// const printStyles = `
-// @media print {
-//   body * { visibility: hidden; }
-//   #print-area, #print-area * { visibility: visible; }
-//   #print-area { position: absolute; left: 0; top: 0; width: 100%; }
-// }
-// `;
-
 const printStyles = `
 @media print {
   body * { visibility: hidden; }
   #print-area, #print-area * { visibility: visible; }
-  #print-area { position: absolute; left: 0; top: 0; width: 100%; font-size: 9px; }
-  .no-print { display: none !important; }
-  @page { margin: 8mm; size: A4 portrait; }
+  #print-area { position: absolute; left: 0; top: 0; width: 100%; }
 }
 `;
-
 
 function Counter({ value, onChange, color }: { value: number, onChange: (v: number) => void, color?: string }) {
   return (
