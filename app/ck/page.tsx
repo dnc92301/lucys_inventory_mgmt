@@ -57,7 +57,7 @@ export default function CommissaryPage() {
           <img src="/lucys_logo.png" alt="Lucy's" style={{ height: 36, width: 36, objectFit: 'contain' }} />
           <div>
             <div style={{ color: '#fff', fontWeight: 700, fontSize: 15 }}>CK Commissary</div>
-            <div style={{ color: '#FFDD00', fontSize: 11 }}>Delivery: {deliveryLabel}</div>
+            <div style={{ color: '#fff', fontSize: 11 }}>Delivery: {deliveryLabel}</div>
           </div>
         </div>
         <button onClick={() => setTimeout(() => window.print(), 300)}
@@ -72,7 +72,7 @@ export default function CommissaryPage() {
         {/* Print header */}
         <div style={{ background: '#1A2A3A', padding: '5px 12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ color: '#fff', fontWeight: 700, fontSize: 13 }}>🏪 CK COMMISSARY ORDER SHEET</div>
-          <div style={{ color: '#FFDD00', fontSize: 11 }}>📅 Delivery: {deliveryLabel}</div>
+          <div style={{ color: '#fff', fontSize: 11 }}>📅 Delivery: {deliveryLabel}</div>
         </div>
 
         {/* Store header row */}
@@ -84,7 +84,7 @@ export default function CommissaryPage() {
               {s}
             </span>
           ))}
-          <span style={{ color: '#FFDD00', fontWeight: 600, fontSize: 10, textAlign: 'center' }}>TOTAL</span>
+          <span style={{ color: '#fff', fontWeight: 600, fontSize: 10, textAlign: 'center' }}>TOTAL</span>
         </div>
 
         {/* Categories and items */}
@@ -151,7 +151,7 @@ export default function CommissaryPage() {
               {storeTotals[s] || '—'}
             </span>
           ))}
-          <span style={{ textAlign: 'center', color: '#FFDD00', fontWeight: 700, fontSize: 11 }}>
+          <span style={{ textAlign: 'center', color: '#fff', fontWeight: 700, fontSize: 11 }}>
             {Object.values(storeTotals).reduce((a, b) => a + b, 0)}
           </span>
         </div>
