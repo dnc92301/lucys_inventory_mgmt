@@ -3,12 +3,22 @@ import { useState, useEffect } from 'react';
 
 const STORES = ['Bedford', 'Berry', 'Grand', 'Irving', 'Onderdonk'];
 
+// const printStyles = `
+// @media print {
+//   body * { visibility: hidden; }
+//   #print-area, #print-area * { visibility: visible; }
+//   #print-area { position: absolute; left: 0; top: 0; width: 100%; font-size: 11px; }
+//   .no-print { display: none !important; }
+// }
+// `;
+
 const printStyles = `
 @media print {
   body * { visibility: hidden; }
   #print-area, #print-area * { visibility: visible; }
-  #print-area { position: absolute; left: 0; top: 0; width: 100%; font-size: 11px; }
+  #print-area { position: absolute; left: 0; top: 0; width: 100%; font-size: 9px; }
   .no-print { display: none !important; }
+  @page { margin: 8mm; size: A4 portrait; }
 }
 `;
 
@@ -70,6 +80,10 @@ export default function CommissaryPage() {
       <div id="print-area">
 
         {/* Print header */}
+        {/* <div style={{ background: '#1A2A3A', padding: '16px 20px', textAlign: 'center' }}>
+          <div style={{ color: '#fff', fontWeight: 700, fontSize: 18 }}>🏪 CK COMMISSARY ORDER SHEET</div>
+          <div style={{ color: '#FFDD00', fontSize: 13, marginTop: 4 }}>📅 Delivery: {deliveryLabel}</div>
+        </div> */}
         <div style={{ background: '#1A2A3A', padding: '16px 20px', textAlign: 'center' }}>
           <div style={{ color: '#fff', fontWeight: 700, fontSize: 18 }}>🏪 CK COMMISSARY ORDER SHEET</div>
           <div style={{ color: '#FFDD00', fontSize: 13, marginTop: 4 }}>📅 Delivery: {deliveryLabel}</div>
