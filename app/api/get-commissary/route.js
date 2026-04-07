@@ -8,7 +8,7 @@ const auth = new google.auth.GoogleAuth({
   scopes: ['https://www.googleapis.com/auth/spreadsheets'],
 });
 
-const SPREADSHEET_ID = '15ZepcPCQjBkghOUw2Jle786BnV38hb0TXjT3bWNUNYI';
+const SPREADSHEET_ID = '138asFl43CsZn9NaJKEkZlKa7GvckOXcNbQ5NuwdZB9g';
 const STORES = ['Bedford', 'Berry', 'Grand', 'Irving', 'Onderdonk'];
 
 export async function GET() {
