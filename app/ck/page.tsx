@@ -76,11 +76,21 @@ export default function CommissaryPage() {
         </div>
 
         {/* Store header row */}
-        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr 1fr 0.8fr', background: '#2E4057', padding: '3px 8px', gap: 4 }}>
+        {/* <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr 1fr 0.8fr', background: '#2E4057', padding: '3px 8px', gap: 4 }}>
           <span style={{ color: '#fff', fontWeight: 600, fontSize: 11 }}>Item</span>
           {STORES.map((s, i) => (
             <span key={s} style={{ fontWeight: 600, fontSize: 10, textAlign: 'center',
               color: ['#048A81','#E63946','#F4A261','#2A9D8F','#6A4C93'][i] }}>
+              {s}
+            </span>
+          ))}
+          <span style={{ color: '#fff', fontWeight: 600, fontSize: 10, textAlign: 'center' }}>TOTAL</span>
+        </div> */}
+
+        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr 1fr 0.8fr', background: '#2E4057', padding: '3px 8px', gap: 4 }}>
+          <span style={{ color: '#fff', fontWeight: 600, fontSize: 11 }}>Item</span>
+          {STORES.map((s, i) => (
+            <span key={s} style={{ fontWeight: 600, fontSize: 10, textAlign: 'center', color: '#fff' }}>
               {s}
             </span>
           ))}
@@ -97,8 +107,11 @@ export default function CommissaryPage() {
           return (
             <div key={cat.name}>
               {/* Category header */}
-              <div style={{ background: '#2E4057', padding: '2px 8px' }}>
+              {/* <div style={{ background: '#2E4057', padding: '2px 8px' }}>
                 <span style={{ color: '#fff', fontWeight: 600, fontSize: 11 }}>{cat.name}</span>
+              </div> */}
+              <div style={{ background: '#e8e8e8', padding: '2px 8px' }}>
+                <span style={{ color: '#1A2A3A', fontWeight: 600, fontSize: 11 }}>{cat.name}</span>
               </div>
 
               {/* Items */}
