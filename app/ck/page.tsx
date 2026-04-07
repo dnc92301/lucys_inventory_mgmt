@@ -76,18 +76,17 @@ export default function CommissaryPage() {
         </div>
 
         {/* Store header row */}
-        {/* <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr 1fr 0.8fr', background: '#2E4057', padding: '3px 8px', gap: 4 }}>
-          <span style={{ color: '#fff', fontWeight: 600, fontSize: 11 }}>Item</span>
-          {STORES.map((s, i) => (
-            <span key={s} style={{ fontWeight: 600, fontSize: 10, textAlign: 'center',
-              color: ['#048A81','#E63946','#F4A261','#2A9D8F','#6A4C93'][i] }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr 1fr 0.8fr', background: '#e8e8e8', padding: '3px 8px', gap: 4 }}>
+          <span style={{ color: '#1A2A3A', fontWeight: 700, fontSize: 11 }}>Item</span>
+          {STORES.map((s) => (
+            <span key={s} style={{ fontWeight: 700, fontSize: 10, textAlign: 'center', color: '#1A2A3A' }}>
               {s}
             </span>
           ))}
-          <span style={{ color: '#fff', fontWeight: 600, fontSize: 10, textAlign: 'center' }}>TOTAL</span>
-        </div> */}
+          <span style={{ color: '#1A2A3A', fontWeight: 700, fontSize: 10, textAlign: 'center' }}>TOTAL</span>
+        </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr 1fr 0.8fr', background: '#2E4057', padding: '3px 8px', gap: 4 }}>
+        {/* <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr 1fr 0.8fr', background: '#2E4057', padding: '3px 8px', gap: 4 }}>
           <span style={{ color: '#fff', fontWeight: 600, fontSize: 11 }}>Item</span>
           {STORES.map((s, i) => (
             <span key={s} style={{ fontWeight: 600, fontSize: 10, textAlign: 'center', color: '#fff' }}>
@@ -95,7 +94,7 @@ export default function CommissaryPage() {
             </span>
           ))}
           <span style={{ color: '#fff', fontWeight: 600, fontSize: 10, textAlign: 'center' }}>TOTAL</span>
-        </div>
+        </div> */}
 
         {/* Categories and items */}
         {categories.map((cat: any) => {
@@ -157,7 +156,7 @@ export default function CommissaryPage() {
         })}
 
         {/* Grand Total */}
-        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr 1fr 0.8fr', background: '#1A2A3A', padding: '5px 8px', gap: 4, marginTop: 4 }}>
+        {/* <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr 1fr 0.8fr', background: '#1A2A3A', padding: '5px 8px', gap: 4, marginTop: 4 }}>
           <span style={{ color: '#fff', fontWeight: 700, fontSize: 11 }}>📦 TOTAL BY STORE</span>
           {STORES.map(s => (
             <span key={s} style={{ textAlign: 'center', color: '#fff', fontWeight: 700, fontSize: 11 }}>
@@ -167,7 +166,20 @@ export default function CommissaryPage() {
           <span style={{ textAlign: 'center', color: '#fff', fontWeight: 700, fontSize: 11 }}>
             {Object.values(storeTotals).reduce((a, b) => a + b, 0)}
           </span>
+        </div> */}
+
+        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr 1fr 0.8fr', background: '#e8e8e8', padding: '5px 8px', gap: 4, marginTop: 4 }}>
+          <span style={{ color: '#1A2A3A', fontWeight: 700, fontSize: 11 }}>📦 TOTAL BY STORE</span>
+          {STORES.map(s => (
+            <span key={s} style={{ textAlign: 'center', color: '#1A2A3A', fontWeight: 700, fontSize: 11 }}>
+              {storeTotals[s] || '—'}
+            </span>
+          ))}
+          <span style={{ textAlign: 'center', color: '#1A2A3A', fontWeight: 700, fontSize: 11 }}>
+            {Object.values(storeTotals).reduce((a, b) => a + b, 0)}
+          </span>
         </div>
+
 
         {/* Footer */}
         <div style={{ padding: '6px 8px', background: '#f9fafb', borderTop: '1px solid #eee', marginTop: 4 }}>
