@@ -66,9 +66,10 @@ export async function GET() {
     };
 
     const deliveryKey = dateKey(delivery);
-    const dayBefore = new Date(delivery);
-    dayBefore.setDate(delivery.getDate() - 1);
-    const dayBeforeKey = dateKey(dayBefore);
+
+    // const dayBefore = new Date(delivery);
+    // dayBefore.setDate(delivery.getDate() - 1);
+    // const dayBeforeKey = dateKey(dayBefore);
 
     const deliveryLabel = delivery.toLocaleDateString('en-US', {
       weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
@@ -98,7 +99,8 @@ export async function GET() {
       if (rowDow === 0) effectiveDate.setDate(effectiveDate.getDate() + 1);
 
       const effectiveKey = dateKey(effectiveDate);
-      if (effectiveKey !== deliveryKey && effectiveKey !== dayBeforeKey) continue;
+      //if (effectiveKey !== deliveryKey && effectiveKey !== dayBeforeKey) continue;
+      if (effectiveKey !== deliveryKey) continue;
       if (!orderMap[rowStore]) continue;
 
       for (let c = 0; c < headers.length; c++) {
