@@ -4,8 +4,9 @@ import { CATEGORIES, SHEET_COLUMNS } from '../../../lib/config';
 export async function POST(request) {
   try {
     const body = await request.json();
-    //const { store, orders, onHand } = body;
-    const { store, orders, onHand, submittedBy } = body;
+    const { store, orders, onHand } = body;
+  
+    //const { store, orders, onHand, submittedBy } = body;
 
     const auth = new google.auth.GoogleAuth({
       credentials: {
@@ -61,8 +62,8 @@ export async function POST(request) {
       .flatMap(cat => cat.items)
       .map(item => onHand[item] || '');
 
-    //const row = [timestamp, store, deliveryDateStr, ...itemValues, '', ...onHandValues];
-    const row = [timestamp, store, deliveryDateStr, ...itemValues, '', ...onHandValues, submittedBy || ''];
+    const row = [timestamp, store, deliveryDateStr, ...itemValues, '', ...onHandValues];
+    //const row = [timestamp, store, deliveryDateStr, ...itemValues, '', ...onHandValues, submittedBy || ''];
 
     await sheets.spreadsheets.values.append({
       spreadsheetId,
