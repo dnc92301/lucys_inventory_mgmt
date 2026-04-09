@@ -70,9 +70,9 @@ export default function CommissaryPage() {
       <div id="print-area">
 
         {/* Print header */}
-        <div style={{ background: '#1A2A3A', padding: '5px 12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ color: '#fff', fontWeight: 700, fontSize: 13 }}>🏪 CK COMMISSARY ORDER SHEET</div>
-          <div style={{ color: '#fff', fontSize: 11 }}>📅 Delivery: {deliveryLabel}</div>
+        <div style={{ background: '#e8e8e8', padding: '5px 12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ color: '#1A2A3A', fontWeight: 700, fontSize: 13 }}>🏪 CK COMMISSARY ORDER SHEET</div>
+          <div style={{ color: '#1A2A3A', fontSize: 11 }}>📅 Delivery: {deliveryLabel}</div>
         </div>
 
         {/* Store header row */}
