@@ -56,14 +56,25 @@ export async function POST(request) {
 
     // Map order quantities to exact sheet column order
     // const itemValues = SHEET_COLUMNS.map(col => orders[col] || '');
+    // const itemValues = SHEET_COLUMNS.map(col => {
+    //   if (col === 'Glove_XL') return gloveSizes?.XL || '';
+    //   if (col === 'Glove_L')  return gloveSizes?.L  || '';
+    //   if (col === 'Glove_M')  return gloveSizes?.M  || '';
+    //   return orders[col] || '';
+    // });
+
+      // Map order quantities to exact sheet column order
+    const gloveStr = ['XL', 'L', 'M']
+      .filter(s => (gloveSizes?.[s] || 0) > 0)
+      .map(s => `${gloveSizes[s]}${s}`)
+      .join(' ');
+
     const itemValues = SHEET_COLUMNS.map(col => {
-      if (col === 'Glove_XL') return gloveSizes?.XL || '';
-      if (col === 'Glove_L')  return gloveSizes?.L  || '';
-      if (col === 'Glove_M')  return gloveSizes?.M  || '';
+      if (col === 'Glove XL/L/M/S 手套 (CS)') return gloveStr || '';
       return orders[col] || '';
     });
 
-  
+
     // Map on hand values for proteins and veggies only
     const onHandValues = CATEGORIES
       .filter(cat => cat.hasOnHand)
