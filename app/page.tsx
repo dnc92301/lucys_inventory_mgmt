@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import { STORES, CATEGORIES } from '../lib/config';
 
+const GLOVE_ITEM = 'Glove XL/L/M/S 手套 (CS)';
+
 const printStyles = `
 @media print {
   body * { visibility: hidden; }
@@ -30,9 +32,10 @@ function Counter({ value, onChange, color }: { value: number, onChange: (v: numb
 }
 
 // ── Review Screen ─────────────────────────────────────────────
-function ReviewScreen({ store, orders, onHand, deliveryDateStr, onBack, onConfirm, loading }: {
+function ReviewScreen({ store, orders, onHand, gloveSizes, deliveryDateStr, onBack, onConfirm, loading }: {
   store: string, orders: Record<string, number>, onHand: Record<string, number>,
-  deliveryDateStr: string, onBack: () => void, onConfirm: () => void, loading: boolean
+  gloveSizes: Record<string, number>, deliveryDateStr: string,
+  onBack: () => void, onConfirm: () => void, loading: boolean
 }) {
   const orderedItems = CATEGORIES.flatMap((cat: any) =>
     cat.items
@@ -75,18 +78,27 @@ function ReviewScreen({ store, orders, onHand, deliveryDateStr, onBack, onConfir
             )}
           </div>
           {items.map((item, idx) => (
-            <div key={item.item} style={{ padding: '10px 20px', background: idx % 2 === 0 ? '#f9fafb' : '#fff', borderBottom: '0.5px solid #eee', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <p style={{ margin: 0, fontSize: 13, fontWeight: 500, color: '#1A2A3A', flex: 1 }}>{item.item}</p>
-              <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-                {item.hasOnHand && (
-                  <div style={{ background: '#f3f4f6', borderRadius: 20, padding: '4px 14px', fontWeight: 700, fontSize: 15, minWidth: 40, textAlign: 'center', color: '#666' }}>
-                    {item.onHand}
+            <div key={item.item}>
+              <div style={{ padding: '10px 20px', background: idx % 2 === 0 ? '#f9fafb' : '#fff', borderBottom: item.item === GLOVE_ITEM ? 'none' : '0.5px solid #eee', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <p style={{ margin: 0, fontSize: 13, fontWeight: 500, color: '#1A2A3A', flex: 1 }}>{item.item}</p>
+                <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+                  {item.hasOnHand && (
+                    <div style={{ background: '#f3f4f6', borderRadius: 20, padding: '4px 14px', fontWeight: 700, fontSize: 15, minWidth: 40, textAlign: 'center', color: '#666' }}>
+                      {item.onHand}
+                    </div>
+                  )}
+                  <div style={{ background: '#048A81', color: '#fff', borderRadius: 20, padding: '4px 14px', fontWeight: 800, fontSize: 16, minWidth: 40, textAlign: 'center' }}>
+                    {item.qty}
                   </div>
-                )}
-                <div style={{ background: '#048A81', color: '#fff', borderRadius: 20, padding: '4px 14px', fontWeight: 800, fontSize: 16, minWidth: 40, textAlign: 'center' }}>
-                  {item.qty}
                 </div>
               </div>
+              {item.item === GLOVE_ITEM && (
+                <div style={{ padding: '4px 20px 10px 36px', background: idx % 2 === 0 ? '#f9fafb' : '#fff', borderBottom: '0.5px solid #eee' }}>
+                  <span style={{ fontSize: 11, color: '#666' }}>
+                    ↳ {['XL', 'L', 'M'].filter(s => (gloveSizes[s] || 0) > 0).map(s => `${s}:${gloveSizes[s]}`).join('  ')}
+                  </span>
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -113,9 +125,9 @@ function ReviewScreen({ store, orders, onHand, deliveryDateStr, onBack, onConfir
 }
 
 // ── Success Screen ────────────────────────────────────────────
-function SuccessScreen({ store, orders, onHand, deliveryDateStr, onNewOrder }: {
+function SuccessScreen({ store, orders, onHand, gloveSizes, deliveryDateStr, onNewOrder }: {
   store: string, orders: Record<string, number>, onHand: Record<string, number>,
-  deliveryDateStr: string, onNewOrder: () => void
+  gloveSizes: Record<string, number>, deliveryDateStr: string, onNewOrder: () => void
 }) {
   const orderedItems = CATEGORIES.flatMap((cat: any) =>
     cat.items
@@ -154,18 +166,27 @@ function SuccessScreen({ store, orders, onHand, deliveryDateStr, onNewOrder }: {
               )}
             </div>
             {items.map((item, idx) => (
-              <div key={item.item} style={{ padding: '10px 20px', background: idx % 2 === 0 ? '#f9fafb' : '#fff', borderBottom: '0.5px solid #eee', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <p style={{ margin: 0, fontSize: 13, fontWeight: 500, color: '#1A2A3A', flex: 1 }}>{item.item}</p>
-                <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-                  {item.hasOnHand && (
-                    <div style={{ background: '#f3f4f6', borderRadius: 20, padding: '4px 14px', fontWeight: 700, fontSize: 15, minWidth: 40, textAlign: 'center', color: '#666' }}>
-                      {item.onHand}
+              <div key={item.item}>
+                <div style={{ padding: '10px 20px', background: idx % 2 === 0 ? '#f9fafb' : '#fff', borderBottom: item.item === GLOVE_ITEM ? 'none' : '0.5px solid #eee', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <p style={{ margin: 0, fontSize: 13, fontWeight: 500, color: '#1A2A3A', flex: 1 }}>{item.item}</p>
+                  <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+                    {item.hasOnHand && (
+                      <div style={{ background: '#f3f4f6', borderRadius: 20, padding: '4px 14px', fontWeight: 700, fontSize: 15, minWidth: 40, textAlign: 'center', color: '#666' }}>
+                        {item.onHand}
+                      </div>
+                    )}
+                    <div style={{ background: '#E8F5E9', color: '#2E7D32', borderRadius: 20, padding: '4px 14px', fontWeight: 800, fontSize: 16, minWidth: 40, textAlign: 'center', border: '1.5px solid #A5D6A7' }}>
+                      {item.qty}
                     </div>
-                  )}
-                  <div style={{ background: '#E8F5E9', color: '#2E7D32', borderRadius: 20, padding: '4px 14px', fontWeight: 800, fontSize: 16, minWidth: 40, textAlign: 'center', border: '1.5px solid #A5D6A7' }}>
-                    {item.qty}
                   </div>
                 </div>
+                {item.item === GLOVE_ITEM && (
+                  <div style={{ padding: '4px 20px 10px 36px', background: idx % 2 === 0 ? '#f9fafb' : '#fff', borderBottom: '0.5px solid #eee' }}>
+                    <span style={{ fontSize: 11, color: '#666' }}>
+                      ↳ {['XL', 'L', 'M'].filter(s => (gloveSizes[s] || 0) > 0).map(s => `${s}:${gloveSizes[s]}`).join('  ')}
+                    </span>
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -191,6 +212,7 @@ export default function Home() {
   const [store, setStore] = useState('');
   const [orders, setOrders] = useState<Record<string, number>>({});
   const [onHand, setOnHand] = useState<Record<string, number>>({});
+  const [gloveSizes, setGloveSizes] = useState<Record<string, number>>({ XL: 0, L: 0, M: 0 });
   const [screen, setScreen] = useState<'form' | 'review' | 'success'>('form');
   const [loading, setLoading] = useState(false);
   const [deliveryDateStr, setDeliveryDateStr] = useState('');
@@ -231,7 +253,7 @@ export default function Home() {
       const response = await fetch('/api/submit-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ store, orders, onHand, deliveryDateStr }),
+        body: JSON.stringify({ store, orders, onHand, gloveSizes, deliveryDateStr }),
       });
       const result = await response.json();
       if (result.success) { setScreen('success'); }
@@ -241,10 +263,14 @@ export default function Home() {
     } finally { setLoading(false); }
   };
 
-  const handleNewOrder = () => { setScreen('form'); setOrders({}); setOnHand({}); setStore(''); setDeliveryDateStr(''); };
+  const handleNewOrder = () => {
+    setScreen('form'); setOrders({}); setOnHand({});
+    setGloveSizes({ XL: 0, L: 0, M: 0 });
+    setStore(''); setDeliveryDateStr('');
+  };
 
-  if (screen === 'review') return <ReviewScreen store={store} orders={orders} onHand={onHand} deliveryDateStr={deliveryDateStr} onBack={() => setScreen('form')} onConfirm={handleSubmit} loading={loading} />;
-  if (screen === 'success') return <SuccessScreen store={store} orders={orders} onHand={onHand} deliveryDateStr={deliveryDateStr} onNewOrder={handleNewOrder} />;
+  if (screen === 'review') return <ReviewScreen store={store} orders={orders} onHand={onHand} gloveSizes={gloveSizes} deliveryDateStr={deliveryDateStr} onBack={() => setScreen('form')} onConfirm={handleSubmit} loading={loading} />;
+  if (screen === 'success') return <SuccessScreen store={store} orders={orders} onHand={onHand} gloveSizes={gloveSizes} deliveryDateStr={deliveryDateStr} onNewOrder={handleNewOrder} />;
 
   return (
     <div style={{ maxWidth: 480, margin: '0 auto', padding: '0 0 80px', fontFamily: 'system-ui, sans-serif' }}>
@@ -268,7 +294,6 @@ export default function Home() {
       {/* Categories */}
       {CATEGORIES.map((cat: any, ci: number) => (
         <div key={ci}>
-          {/* Category header with static On Hand / Order Qty labels */}
           <div onClick={() => toggleCat(cat.name)} style={{ background: '#2E4057', padding: '8px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer' }}>
             <span style={{ color: '#fff', fontWeight: 600, fontSize: 13, flex: 1 }}>{cat.name}</span>
             {!collapsed[cat.name] && (
@@ -284,20 +309,38 @@ export default function Home() {
             <span style={{ color: '#aaa', fontSize: 12, marginLeft: 8, flexShrink: 0 }}>{collapsed[cat.name] ? '▶' : '▼'}</span>
           </div>
 
-          {/* Item rows — hidden when collapsed */}
           {!collapsed[cat.name] && cat.items.map((item: string, ii: number) => (
-            <div key={ii} style={{ padding: '8px 20px', background: ii % 2 === 0 ? '#f9fafb' : '#fff', borderBottom: '0.5px solid #eee', display: 'flex', alignItems: 'center' }}>
-              <p style={{ margin: 0, fontSize: 13, fontWeight: 500, color: '#1A2A3A', flex: 1 }}>{item}</p>
-              <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexShrink: 0 }}>
-                {cat.hasOnHand && (
-                  <div style={{ width: 100 }}>
-                    <Counter value={onHand[item] || 0} onChange={v => setOnHandQty(item, v)} color="#f3f4f6" />
-                  </div>
-                )}
-                <div style={{ width: 100 }}>
-                  <Counter value={orders[item] || 0} onChange={v => setOrderQty(item, v)} color="#e6f7f4" />
+            <div key={ii}>
+              <div style={{ padding: '8px 20px', background: ii % 2 === 0 ? '#f9fafb' : '#fff', borderBottom: item === GLOVE_ITEM ? 'none' : '0.5px solid #eee', display: 'flex', alignItems: 'center' }}>
+                <p style={{ margin: 0, fontSize: 13, fontWeight: 500, color: '#1A2A3A', flex: 1 }}>{item}</p>
+                <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexShrink: 0 }}>
+                  {cat.hasOnHand && (
+                    <div style={{ width: 100 }}>
+                      <Counter value={onHand[item] || 0} onChange={v => setOnHandQty(item, v)} color="#f3f4f6" />
+                    </div>
+                  )}
+                  {item !== GLOVE_ITEM && (
+                    <div style={{ width: 100 }}>
+                      <Counter value={orders[item] || 0} onChange={v => setOrderQty(item, v)} color="#e6f7f4" />
+                    </div>
+                  )}
                 </div>
               </div>
+
+              {/* Glove size sub-rows */}
+              {item === GLOVE_ITEM && ['XL', 'L', 'M'].map((size, si) => (
+                <div key={size} style={{ padding: '6px 20px 6px 36px', background: ii % 2 === 0 ? '#f9fafb' : '#fff', borderBottom: si === 2 ? '0.5px solid #eee' : 'none', display: 'flex', alignItems: 'center' }}>
+                  <p style={{ margin: 0, fontSize: 12, color: '#666', flex: 1 }}>↳ {size}</p>
+                  <div style={{ width: 100 }}>
+                    <Counter value={gloveSizes[size] || 0} onChange={v => {
+                      const updated = { ...gloveSizes, [size]: v };
+                      setGloveSizes(updated);
+                      const total = Object.values(updated).reduce((sum, val) => sum + val, 0);
+                      setOrderQty(GLOVE_ITEM, total);
+                    }} color="#e6f7f4" />
+                  </div>
+                </div>
+              ))}
             </div>
           ))}
         </div>
