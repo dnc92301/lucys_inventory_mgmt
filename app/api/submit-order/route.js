@@ -4,7 +4,9 @@ import { CATEGORIES, SHEET_COLUMNS } from '../../../lib/config';
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { store, orders, onHand } = body;
+    // const { store, orders, onHand } = body;
+    const { store, orders, onHand, gloveSizes } = body;
+
 
     const auth = new google.auth.GoogleAuth({
       credentials: {
@@ -53,8 +55,15 @@ export async function POST(request) {
     const deliveryDateStr = dm + '/' + dd + '/' + dy;
 
     // Map order quantities to exact sheet column order
-    const itemValues = SHEET_COLUMNS.map(col => orders[col] || '');
+    // const itemValues = SHEET_COLUMNS.map(col => orders[col] || '');
+    const itemValues = SHEET_COLUMNS.map(col => {
+      if (col === 'Glove_XL') return gloveSizes?.XL || '';
+      if (col === 'Glove_L')  return gloveSizes?.L  || '';
+      if (col === 'Glove_M')  return gloveSizes?.M  || '';
+      return orders[col] || '';
+    });
 
+  
     // Map on hand values for proteins and veggies only
     const onHandValues = CATEGORIES
       .filter(cat => cat.hasOnHand)
