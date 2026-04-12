@@ -69,8 +69,16 @@ export default function HistoryPage() {
   const totalOrders = data?.categories?.reduce((sum: number, cat: any) =>
     sum + cat.items.reduce((s: number, i: any) => s + i.total, 0), 0) || 0;
 
+
+
   return (
     <div style={{ maxWidth: 640, margin: '0 auto', padding: '0 0 80px', fontFamily: 'system-ui, sans-serif' }}>
+
+      <style>{`
+        @media print {
+          .no-print { display: none !important; }
+        }
+      `}</style>
 
       {/* Header */}
       <div style={{ background: '#1A2A3A', padding: '10px 16px', position: 'sticky', top: 0, zIndex: 10 }}>
