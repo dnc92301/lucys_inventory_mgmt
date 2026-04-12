@@ -72,9 +72,17 @@ export default function HistoryPage() {
   return (
     <div style={{ maxWidth: 640, margin: '0 auto', padding: '0 0 80px', fontFamily: 'system-ui, sans-serif' }}>
 
+      {/* <style>{`
+        @media print {
+          .no-print { display: none !important; }
+        }
+      `}</style> */}
+
       <style>{`
         @media print {
           .no-print { display: none !important; }
+          div[style*="sticky"] { position: relative !important; }
+          @page { margin: 10mm; }
         }
       `}</style>
 
