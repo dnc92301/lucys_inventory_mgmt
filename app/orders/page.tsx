@@ -69,8 +69,6 @@ export default function HistoryPage() {
   const totalOrders = data?.categories?.reduce((sum: number, cat: any) =>
     sum + cat.items.reduce((s: number, i: any) => s + i.total, 0), 0) || 0;
 
-
-
   return (
     <div style={{ maxWidth: 640, margin: '0 auto', padding: '0 0 80px', fontFamily: 'system-ui, sans-serif' }}>
 
@@ -211,6 +209,17 @@ export default function HistoryPage() {
           <p style={{ margin: 0, fontSize: 14 }}>Select a store and week to view orders</p>
         </div>
       )}
+
+      {/* Print button - hidden when printing */}
+      <div className="no-print" style={{ padding: '10px 16px', borderTop: '0.5px solid #eee', background: '#fff' }}>
+        <button
+          onClick={() => window.print()}
+          style={{ width: '100%', background: '#fff', color: '#048A81', border: '1.5px solid #048A81', borderRadius: 10, padding: '10px', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}
+        >
+          🖨️ Print / Save PDF
+        </button>
+      </div>
+
     </div>
   );
 }
