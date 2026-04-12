@@ -75,7 +75,7 @@ export default function HistoryPage() {
       {/* Header */}
       <div style={{ background: '#1A2A3A', padding: '10px 16px', position: 'sticky', top: 0, zIndex: 10 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <img src="/lucys_logo.png" alt="Lucy's" style={{ height: 28, width: 28, objectFit: 'contain' }} />
+          {/* <img src="/lucys_logo.png" alt="Lucy's" style={{ height: 28, width: 28, objectFit: 'contain' }} /> */}
           <span style={{ color: '#fff', fontWeight: 700, fontSize: 15 }}>Order history</span>
           <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: 11, marginLeft: 4 }}>View submitted orders by store &amp; week</span>
         </div>
@@ -186,14 +186,14 @@ export default function HistoryPage() {
             </table>
           </div>
 
-          <div style={{ padding: '10px 16px', borderTop: '0.5px solid #eee', background: '#fff' }}>
+          {/* <div style={{ padding: '10px 16px', borderTop: '0.5px solid #eee', background: '#fff' }}>
             <button
               onClick={() => window.print()}
               style={{ width: '100%', background: '#fff', color: '#048A81', border: '1.5px solid #048A81', borderRadius: 10, padding: '10px', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}
             >
               Print / Save PDF
             </button>
-          </div>
+          </div> */}
         </>
       )}
 
