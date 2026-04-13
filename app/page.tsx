@@ -7,7 +7,10 @@ const USER_LOOKUP: Record<string, { name: string; store: string; role: string }>
   'junxingwang3@gmail.com': { name: 'Jun Wang',   store: 'Onderdonk', role: 'Assistant' },
   'andyzheng725@gmail.com': { name: 'Andy Zheng', store: 'Onderdonk', role: 'Team Lead' },
   'dhuyang@gmail.com':      { name: 'Dong Yang',  store: 'Onderdonk', role: 'Admin' },
+  'xyz92301@gmail.com':     { name: 'Sean Zeng',  store: 'Irving',    role: 'Assistant' },
+
 };
+
 
 const printStyles = `
 @media print {
