@@ -54,16 +54,34 @@ export async function POST(request) {
     const deliveryDateStr = dm + '/' + dd + '/' + dy;
 
     // Map order quantities to exact sheet column order
-    const itemValues = SHEET_COLUMNS.map(col => orders[col] || '');
+    // ── FIX: Read header row first, write by name not position ──
+    const headerRes = await sheets.spreadsheets.values.get({
+      spreadsheetId,
+      range: 'Form Responses 1!1:1',
+    });
+    const sheetHeaders = (headerRes.data.values?.[0] || []).map(h => String(h).trim());
+    const rowSize = sheetHeaders.length;
+    const row = new Array(rowSize).fill('');
 
-    // Map on hand values for proteins and veggies only
-    const onHandValues = CATEGORIES
-      .filter(cat => cat.hasOnHand)
-      .flatMap(cat => cat.items)
-      .map(item => onHand[item] || '');
+    // Fixed columns
+    row[0] = timestamp;
+    row[1] = store;
+    row[2] = deliveryDateStr;
 
-    const row = [timestamp, store, deliveryDateStr, ...itemValues, '', ...onHandValues];
-    //const row = [timestamp, store, deliveryDateStr, ...itemValues, '', ...onHandValues, submittedBy || ''];
+    // Write each item qty to its exact column position by name
+    for (const col of SHEET_COLUMNS) {
+      const idx = sheetHeaders.indexOf(col);
+      if (idx !== -1) row[idx] = orders[col] || '';
+    }
+
+    // Write onHand values — match "Item Name - On Hand" headers
+    const onHandItems = CATEGORIES.filter(cat => cat.hasOnHand).flatMap(cat => cat.items);
+    for (const item of onHandItems) {
+      const onHandHeader = item + ' - On Hand';
+      const idx = sheetHeaders.findIndex(h => h.replace(/\s+/g, ' ').trim() === onHandHeader.trim());
+      if (idx !== -1 && onHand[item]) row[idx] = onHand[item];
+    }
+    // ── END FIX ──
 
     await sheets.spreadsheets.values.append({
       spreadsheetId,
@@ -72,6 +90,24 @@ export async function POST(request) {
       insertDataOption: 'INSERT_ROWS',
       resource: { values: [row] },
     });
+    // const itemValues = SHEET_COLUMNS.map(col => orders[col] || '');
+
+    // // Map on hand values for proteins and veggies only
+    // const onHandValues = CATEGORIES
+    //   .filter(cat => cat.hasOnHand)
+    //   .flatMap(cat => cat.items)
+    //   .map(item => onHand[item] || '');
+
+    // const row = [timestamp, store, deliveryDateStr, ...itemValues, '', ...onHandValues];
+    // //const row = [timestamp, store, deliveryDateStr, ...itemValues, '', ...onHandValues, submittedBy || ''];
+
+    // await sheets.spreadsheets.values.append({
+    //   spreadsheetId,
+    //   range: 'Form Responses 1!A:A',
+    //   valueInputOption: 'USER_ENTERED',
+    //   insertDataOption: 'INSERT_ROWS',
+    //   resource: { values: [row] },
+    // });
 
     //fetch('https://script.google.com/macros/s/AKfycbzUFyOUasxAuuDnjHj9Uqaopu6ZwM1tNUp_2r6dQW8g8XUF57zVCzsm1IU6CN88ko3p/exec');
 
