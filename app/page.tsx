@@ -3,11 +3,12 @@ import { useState } from 'react';
 import { STORES, CATEGORIES } from '../lib/config';
 
 const USER_LOOKUP: Record<string, { name: string; store: string; role: string }> = {
-  'bennyyu898@gmail.com':   { name: 'Benny Yu',   store: 'Onderdonk', role: 'Manager' },
-  'junxingwang3@gmail.com': { name: 'Jun Wang',   store: 'Onderdonk', role: 'Assistant' },
-  'andyzheng725@gmail.com': { name: 'Andy Zheng', store: 'Onderdonk', role: 'Team Lead' },
-  'dhuyang@gmail.com':      { name: 'Dong Yang',  store: 'Onderdonk', role: 'Admin' },
-  'xyz92301@gmail.com':     { name: 'Sean Zeng',  store: 'Irving',    role: 'Assistant' },
+  'bennyyu898@gmail.com':     { name: 'Benny Yu',   store: 'Onderdonk', role: 'Manager' },
+  'junxingwang3@gmail.com':   { name: 'Jun Wang',   store: 'Onderdonk', role: 'Assistant' },
+  'andyzheng725@gmail.com':   { name: 'Andy Zheng', store: 'Onderdonk', role: 'Team Lead' },
+  'dhuyang@gmail.com':        { name: 'Dong Yang',  store: 'Onderdonk', role: 'Admin' },
+  'xyz92301@gmail.com':       { name: 'Sean Zeng',  store: 'Irving',    role: 'Assistant' },
+  'jimmyzhen0919@gmail.com':  { name: 'Jimmy Zhen',  store: 'Berry',    role: 'Manager' },
 
 };
 
