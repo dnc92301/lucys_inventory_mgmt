@@ -9,6 +9,8 @@ const USER_LOOKUP: Record<string, { name: string; store: string; role: string }>
   'dhuyang@gmail.com':        { name: 'Dong Yang',  store: 'Onderdonk', role: 'Admin' },
   'xyz92301@gmail.com':       { name: 'Sean Zeng',  store: 'Irving',    role: 'Assistant' },
   'jimmyzhen0919@gmail.com':  { name: 'Jimmy Zhen',  store: 'Berry',    role: 'Manager' },
+  'danieldelmelo@gmail.com':  { name: 'Daniel Delgadillo',  store: 'Bedford',    role: 'Manager' },
+  'maitle525@gmail.com':      { name: 'Mai Le',  store: 'Grand',    role: 'Manager' },
 
 };
 
