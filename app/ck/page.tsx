@@ -111,7 +111,7 @@ export default function CommissaryPage() {
               {/* <div style={{ background: '#2E4057', padding: '2px 8px' }}>
                 <span style={{ color: '#fff', fontWeight: 600, fontSize: 11 }}>{cat.name}</span>
               </div> */}
-              <div style={{ background: '#e8e8e8', padding: '2px 8px' }}>
+              <div style={{ background: '#b0b8c1', padding: '2px 8px' }}>
                 <span style={{ color: '#1A2A3A', fontWeight: 600, fontSize: 11 }}>{cat.name}</span>
               </div>
 
