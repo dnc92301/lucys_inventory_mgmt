@@ -1,7 +1,9 @@
 'use client';
 import { useState, useEffect } from 'react';
 
-const STORES = ['Bedford', 'Berry', 'Grand', 'Irving', 'Onderdonk'];
+//const STORES = ['Bedford', 'Berry', 'Grand', 'Irving', 'Onderdonk'];
+const STORES = ['Berry', 'Bedford', 'Grand', 'Irving', 'Onderdonk'];
+
 
 const printStyles = `
 @media print {
