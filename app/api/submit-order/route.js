@@ -91,6 +91,17 @@ export async function POST(request) {
     }
     // ── END FIX ──
 
+    // Write glove sizes as combined string e.g. "XL:1,L:1" (skip zeros)
+    const GLOVE_ITEM = 'Glove XL/L/M/S 手套 (CS)';
+    if (gloveSizes) {
+      const gloveStr = ['XL', 'L', 'M']
+        .filter(s => (gloveSizes[s] || 0) > 0)
+        .map(s => `${s}:${gloveSizes[s]}`)
+        .join(',');
+      const gloveIdx = sheetHeaders.indexOf(GLOVE_ITEM);
+      if (gloveIdx !== -1) row[gloveIdx] = gloveStr;
+    }
+
     await sheets.spreadsheets.values.append({
       spreadsheetId,
       range: 'Form Responses 1!A:A',
