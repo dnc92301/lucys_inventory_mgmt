@@ -3,13 +3,15 @@ import { useState } from 'react';
 import { STORES, CATEGORIES } from '../lib/config';
 
 const USER_LOOKUP: Record<string, { name: string; store: string; role: string }> = {
-  'bennyyu898@gmail.com':     { name: 'Benny Yu',   store: 'Onderdonk', role: 'Manager' },
-  'junxingwang3@gmail.com':   { name: 'Jun Wang',   store: 'Onderdonk', role: 'Assistant' },
-  'andyzheng725@gmail.com':   { name: 'Andy Zheng', store: 'Onderdonk', role: 'Team Lead' },
-  'dhuyang@gmail.com':        { name: 'Dong Yang',  store: 'Onderdonk', role: 'Admin' },
-  'xyz92301@gmail.com':       { name: 'Sean Zeng',  store: 'Irving',    role: 'Assistant' },
-  'jimmyzhen0919@gmail.com':  { name: 'Jimmy Zhen',  store: 'Berry',    role: 'Manager' },
-  'danieldelmelo@gmail.com':  { name: 'Daniel Delgadillo',  store: 'Bedford',    role: 'Manager' },
+  'bennyyu898@gmail.com':       { name: 'Benny Yu',   store: 'Onderdonk', role: 'Manager' },
+  'junxingwang3@gmail.com':     { name: 'Jun Wang',   store: 'Onderdonk', role: 'Assistant' },
+  'andyzheng725@gmail.com':     { name: 'Andy Zheng', store: 'Onderdonk', role: 'Team Lead' },
+  'dhuyang@gmail.com':          { name: 'Dong Yang',  store: 'Onderdonk', role: 'Admin' },
+  'xyz92301@gmail.com':         { name: 'Sean Zeng',  store: 'Irving',    role: 'Assistant' },
+  'jimmyzhen0919@gmail.com':    { name: 'Jimmy Zhen',  store: 'Berry',    role: 'Manager' },
+  'rosalee0116@gmail.com':      { name: 'Rosa Lee',  store: 'Berry',    role: 'Assistant' },
+  'danieldelmelo@gmail.com':    { name: 'Daniel Delgadillo',  store: 'Bedford',    role: 'Manager' },
+  'wilsontsang1988@gmail.com':  { name: 'Wilson Tsang',  store: 'Bedford',    role: 'Assistant' },
   'maitle525@gmail.com':      { name: 'Mai Le',  store: 'Grand',    role: 'Manager' },
 
 };
