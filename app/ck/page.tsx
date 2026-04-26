@@ -16,28 +16,17 @@ const STORES = ['Berry', 'Bedford', 'Grand', 'Irving', 'Onderdonk'];
 // `;
 
 // CORRECT VERSION
-// const printStyles = `
-// @media print {
-//   body * { visibility: hidden; }
-//   #print-area, #print-area * { visibility: visible; }
-//   #print-area { position: absolute; left: 0; top: 0; width: 100%; font-size: 7px; line-height: 1.1; }
-//   #print-area > div > div { page-break-inside: avoid; }
-//   .no-print { display: none !important; }
-//   @page { margin: 8mm; size: A4 portrait; }
-// }
-// `;
-
 const printStyles = `
 @media print {
   body * { visibility: hidden; }
   #print-area, #print-area * { visibility: visible; }
-  #print-area { position: absolute; left: 0; top: 0; width: 100%; font-size: 7px; line-height: 1.1; padding-top: 30px; }
+  #print-area { position: absolute; left: 0; top: 0; width: 100%; font-size: 7px; line-height: 1.1; }
   #print-area > div > div { page-break-inside: avoid; }
   .no-print { display: none !important; }
-  .store-header { position: fixed; top: 0; left: 0; right: 0; background: #e8e8e8; z-index: 100; }
   @page { margin: 8mm; size: A4 portrait; }
 }
 `;
+
 
 // const printStyles = `
 // @media print {
@@ -145,8 +134,7 @@ export default function CommissaryPage() {
         </div> */}
 
         {/* Store header row */}
-        {/*</div><div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr 1fr 0.8fr', background: '#e8e8e8', padding: '3px 8px', gap: 4 }}>*/}
-        <div className="store-header" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr 1fr 0.8fr', background: '#e8e8e8', padding: '3px 8px', gap: 4 }}>
+        </div><div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr 1fr 0.8fr', background: '#e8e8e8', padding: '3px 8px', gap: 4 }}>
 
           <span style={{ color: '#1A2A3A', fontWeight: 700, fontSize: 11 }}>Item</span>
           {STORES.map((s) => (
