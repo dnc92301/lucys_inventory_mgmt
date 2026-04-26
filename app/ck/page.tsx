@@ -134,7 +134,7 @@ export default function CommissaryPage() {
         </div> */}
 
         {/* Store header row */}
-        </div><div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr 1fr 0.8fr', background: '#e8e8e8', padding: '3px 8px', gap: 4 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr 1fr 0.8fr', background: '#e8e8e8', padding: '3px 8px', gap: 4 }}>
 
           <span style={{ color: '#1A2A3A', fontWeight: 700, fontSize: 11 }}>Item</span>
           {STORES.map((s) => (
