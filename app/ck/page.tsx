@@ -15,13 +15,23 @@ const STORES = ['Berry', 'Bedford', 'Grand', 'Irving', 'Onderdonk'];
 // }
 // `;
 
+// const printStyles = `
+// @media print {
+//   body * { visibility: hidden; }
+//   #print-area, #print-area * { visibility: visible; }
+//   #print-area { position: absolute; left: 0; top: 0; width: 100%; font-size: 8px; line-height: 1.2; padding-top: 40px; }
+//   .no-print { display: none !important; }
+//   .store-header { position: fixed; top: 0; left: 0; right: 0; background: #2E4057; z-index: 100; }
+//   @page { margin: 8mm; size: A4 portrait; }
+// }
+// `;
+
 const printStyles = `
 @media print {
   body * { visibility: hidden; }
   #print-area, #print-area * { visibility: visible; }
-  #print-area { position: absolute; left: 0; top: 0; width: 100%; font-size: 8px; line-height: 1.2; padding-top: 40px; }
+  #print-area { position: absolute; left: 0; top: 0; width: 100%; font-size: 8px; line-height: 1.2; }
   .no-print { display: none !important; }
-  .store-header { position: fixed; top: 0; left: 0; right: 0; background: #2E4057; z-index: 100; }
   @page { margin: 8mm; size: A4 portrait; }
 }
 `;
