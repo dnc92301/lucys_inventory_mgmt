@@ -116,6 +116,8 @@ export async function GET() {
             const n = parseInt(s.split(':')[1]);
             return sum + (isNaN(n) ? 0 : n);
           }, 0);
+          // Preserve raw size breakdown for display
+          orderMap[rowStore][itemName + ' _sizes'] = raw;
         } else {
           qty = parseFloat(raw);
         }
@@ -125,6 +127,27 @@ export async function GET() {
         orderMap[rowStore][itemName] += qty;
       }
 
+
+      // for (let c = 0; c < headers.length; c++) {
+      //   const itemName = headers[c];
+      //   const raw = row[c];
+      //   if (!raw) continue;
+
+      //   // Handle glove combined-string format e.g. "XL:1,L:1,M:1" — sum all qty parts
+      //   let qty;
+      //   if (typeof raw === 'string' && raw.includes(':')) {
+      //     qty = raw.split(',').reduce((sum, s) => {
+      //       const n = parseInt(s.split(':')[1]);
+      //       return sum + (isNaN(n) ? 0 : n);
+      //     }, 0);
+      //   } else {
+      //     qty = parseFloat(raw);
+      //   }
+
+      //   if (isNaN(qty) || qty <= 0) continue;
+      //   if (!orderMap[rowStore][itemName]) orderMap[rowStore][itemName] = 0;
+      //   orderMap[rowStore][itemName] += qty;
+      // }
       // for (let c = 0; c < headers.length; c++) {
       //   const itemName = headers[c];
       //   const raw = row[c];
