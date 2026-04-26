@@ -117,7 +117,24 @@ export async function GET() {
             return sum + (isNaN(n) ? 0 : n);
           }, 0);
           // Preserve raw size breakdown for display
-          orderMap[rowStore][itemName + ' _sizes'] = raw;
+          // orderMap[rowStore][itemName + ' _sizes'] = raw;
+          // Merge size breakdowns across multiple submissions
+          const sizeKey = itemName + ' _sizes';
+          const existing = orderMap[rowStore][sizeKey] || '';
+          const merged = {};
+          [existing, raw].forEach(str => {
+            if (!str) return;
+            str.split(',').forEach(s => {
+              const [size, n] = s.split(':');
+              const num = parseInt(n);
+              if (size && !isNaN(num)) merged[size] = (merged[size] || 0) + num;
+            });
+          });
+          orderMap[rowStore][sizeKey] = ['XL', 'L', 'M']
+            .filter(s => merged[s] > 0)
+            .map(s => `${s}:${merged[s]}`)
+            .join(',');
+          
         } else {
           qty = parseFloat(raw);
         }
