@@ -5,11 +5,22 @@ import { useState, useEffect } from 'react';
 const STORES = ['Berry', 'Bedford', 'Grand', 'Irving', 'Onderdonk'];
 
 
+// const printStyles = `
+// @media print {
+//   body * { visibility: hidden; }
+//   #print-area, #print-area * { visibility: visible; }
+//   #print-area { position: absolute; left: 0; top: 0; width: 100%; font-size: 9px; line-height: 1.2; }
+//   .no-print { display: none !important; }
+//   @page { margin: 8mm; size: A4 portrait; }
+// }
+// `;
+
 const printStyles = `
 @media print {
   body * { visibility: hidden; }
   #print-area, #print-area * { visibility: visible; }
-  #print-area { position: absolute; left: 0; top: 0; width: 100%; font-size: 9px; line-height: 1.2; }
+  #print-area { position: absolute; left: 0; top: 0; width: 100%; font-size: 7px; line-height: 1.1; }
+  #print-area > div > div { page-break-inside: avoid; }
   .no-print { display: none !important; }
   @page { margin: 8mm; size: A4 portrait; }
 }
