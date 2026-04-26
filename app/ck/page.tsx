@@ -172,6 +172,22 @@ export default function CommissaryPage() {
                         <span></span>
                       </div>
                     )}
+
+                    {/* Glove size breakdown row */}
+                    {item === 'Glove XL/L/M/S 手套 (CS)' && (
+                      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr 1fr 0.8fr', padding: '1px 8px', background: '#f0f0f0', gap: 4 }}>
+                        <span style={{ fontSize: 9, color: '#888', fontStyle: 'italic' }}>↳ Sizes</span>
+                        {STORES.map((s, si) => {
+                          const sizes = orderMap[s]?.[item + ' _sizes'];
+                          return (
+                            <span key={si} style={{ textAlign: 'center', fontSize: 9, color: sizes ? '#555' : '#ccc', fontStyle: 'italic' }}>
+                              {sizes || '—'}
+                            </span>
+                          );
+                        })}
+                        <span></span>
+                      </div>
+                    )}
                   </div>
                 );
               })}
