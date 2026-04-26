@@ -5,15 +5,15 @@ import { useState, useEffect } from 'react';
 const STORES = ['Berry', 'Bedford', 'Grand', 'Irving', 'Onderdonk'];
 
 
-// const printStyles = `
-// @media print {
-//   body * { visibility: hidden; }
-//   #print-area, #print-area * { visibility: visible; }
-//   #print-area { position: absolute; left: 0; top: 0; width: 100%; font-size: 9px; line-height: 1.2; }
-//   .no-print { display: none !important; }
-//   @page { margin: 8mm; size: A4 portrait; }
-// }
-// `;
+const printStyles = `
+@media print {
+  body * { visibility: hidden; }
+  #print-area, #print-area * { visibility: visible; }
+  #print-area { position: absolute; left: 0; top: 0; width: 100%; font-size: 9px; line-height: 1.2; }
+  .no-print { display: none !important; }
+  @page { margin: 8mm; size: A4 portrait; }
+}
+`;
 
 // const printStyles = `
 // @media print {
@@ -26,15 +26,15 @@ const STORES = ['Berry', 'Bedford', 'Grand', 'Irving', 'Onderdonk'];
 // }
 // `;
 
-const printStyles = `
-@media print {
-  body * { visibility: hidden; }
-  #print-area, #print-area * { visibility: visible; }
-  #print-area { position: absolute; left: 0; top: 0; width: 100%; font-size: 8px; line-height: 1.2; }
-  .no-print { display: none !important; }
-  @page { margin: 8mm; size: A4 portrait; }
-}
-`;
+// const printStyles = `
+// @media print {
+//   body * { visibility: hidden; }
+//   #print-area, #print-area * { visibility: visible; }
+//   #print-area { position: absolute; left: 0; top: 0; width: 100%; font-size: 8px; line-height: 1.2; }
+//   .no-print { display: none !important; }
+//   @page { margin: 8mm; size: A4 portrait; }
+// }
+// `;
 
 export default function CommissaryPage() {
   const [data, setData] = useState<any>(null);
@@ -110,7 +110,18 @@ export default function CommissaryPage() {
         </div> */}
 
         {/* Store header row */}
-        <div className="store-header" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr 1fr 0.8fr', background: '#e8e8e8', padding: '3px 8px', gap: 4 }}>
+        {/* <div className="store-header" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr 1fr 0.8fr', background: '#e8e8e8', padding: '3px 8px', gap: 4 }}>
+          <span style={{ color: '#1A2A3A', fontWeight: 700, fontSize: 11 }}>Item</span>
+          {STORES.map((s) => (
+            <span key={s} style={{ fontWeight: 700, fontSize: 10, textAlign: 'center', color: '#1A2A3A' }}>
+              {s}
+            </span>
+          ))}
+          <span style={{ color: '#1A2A3A', fontWeight: 700, fontSize: 10, textAlign: 'center' }}>TOTAL</span>
+        </div> */}
+
+        {/* Store header row */}
+        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr 1fr 0.8fr', background: '#e8e8e8', padding: '3px 8px', gap: 4 }}>
           <span style={{ color: '#1A2A3A', fontWeight: 700, fontSize: 11 }}>Item</span>
           {STORES.map((s) => (
             <span key={s} style={{ fontWeight: 700, fontSize: 10, textAlign: 'center', color: '#1A2A3A' }}>
@@ -119,6 +130,7 @@ export default function CommissaryPage() {
           ))}
           <span style={{ color: '#1A2A3A', fontWeight: 700, fontSize: 10, textAlign: 'center' }}>TOTAL</span>
         </div>
+
 
         {/* <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr 1fr 0.8fr', background: '#2E4057', padding: '3px 8px', gap: 4 }}>
           <span style={{ color: '#fff', fontWeight: 600, fontSize: 11 }}>Item</span>
