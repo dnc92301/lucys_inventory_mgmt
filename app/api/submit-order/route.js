@@ -19,8 +19,8 @@ export async function POST(request) {
     });
 
     const sheets = google.sheets({ version: 'v4', auth });
-    //const spreadsheetId = '15ZepcPCQjBkghOUw2Jle786BnV38hb0TXjT3bWNUNYI'; ## PRODUCTION
-    const spreadsheetId = '138asFl43CsZn9NaJKEkZlKa7GvckOXcNbQ5NuwdZB9g';
+    const spreadsheetId = '15ZepcPCQjBkghOUw2Jle786BnV38hb0TXjT3bWNUNYI'; 
+    //const spreadsheetId = '138asFl43CsZn9NaJKEkZlKa7GvckOXcNbQ5NuwdZB9g'; ## QA
 
 
     const timestamp = new Date().toLocaleString('en-US', { timeZone: 'America/New_York' });
