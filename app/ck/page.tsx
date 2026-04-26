@@ -7,8 +7,10 @@ const printStyles = `
 @media print {
   body * { visibility: hidden; }
   #print-area, #print-area * { visibility: visible; }
-  #print-area { position: absolute; left: 0; top: 0; width: 100%; font-size: 11px; }
+  #print-area { position: absolute; left: 0; top: 0; width: 100%; font-size: 10px; }
   .no-print { display: none !important; }
+  .store-header { position: fixed; top: 0; left: 0; right: 0; background: #2E4057; z-index: 100; }
+  #print-area { padding-top: 40px; }
 }
 `;
 
@@ -76,7 +78,10 @@ export default function CommissaryPage() {
         </div>
 
         {/* Store header row */}
-        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr 1fr 0.8fr', background: '#2E4057', padding: '8px 12px', gap: 4 }}>
+        {/* <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr 1fr 0.8fr', background: '#2E4057', padding: '8px 12px', gap: 4 }}>
+          <span style={{ color: '#fff', fontWeight: 600, fontSize: 12 }}>Item</span>
+          {STORES.map((s, i) => ( */}
+        <div className="store-header" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr 1fr 0.8fr', background: '#2E4057', padding: '8px 12px', gap: 4 }}>
           <span style={{ color: '#fff', fontWeight: 600, fontSize: 12 }}>Item</span>
           {STORES.map((s, i) => (
             <span key={s} style={{ fontWeight: 600, fontSize: 11, textAlign: 'center',
