@@ -19,7 +19,9 @@ export async function POST(request) {
     });
 
     const sheets = google.sheets({ version: 'v4', auth });
-    const spreadsheetId = '15ZepcPCQjBkghOUw2Jle786BnV38hb0TXjT3bWNUNYI';
+    //const spreadsheetId = '15ZepcPCQjBkghOUw2Jle786BnV38hb0TXjT3bWNUNYI'; ## PRODUCTION
+    const spreadsheetId = '138asFl43CsZn9NaJKEkZlKa7GvckOXcNbQ5NuwdZB9g';
+
 
     const timestamp = new Date().toLocaleString('en-US', { timeZone: 'America/New_York' });
 
@@ -76,7 +78,8 @@ export async function POST(request) {
       if (idx !== -1) row[idx] = orders[col] || '';
     }
 
-    // Write onHand values — match "Item Name - On Hand" headers
+
+// Write onHand values — match "Item Name - On Hand" headers
     const onHandItems = CATEGORIES.filter(cat => cat.hasOnHand).flatMap(cat => cat.items);
     for (const item of onHandItems) {
       const onHandHeader = item + ' - On Hand';
@@ -84,6 +87,17 @@ export async function POST(request) {
       if (idx !== -1 && onHand[item]) row[idx] = onHand[item];
     }
     // ── END FIX ──
+
+    // Write glove sizes as combined string e.g. "XL:1,L:1" (skip zeros)
+    const GLOVE_ITEM = 'Glove XL/L/M/S 手套 (CS)';
+    if (gloveSizes) {
+      const gloveStr = ['XL', 'L', 'M']
+        .filter(s => (gloveSizes[s] || 0) > 0)
+        .map(s => `${s}:${gloveSizes[s]}`)
+        .join(',');
+      const gloveIdx = sheetHeaders.indexOf(GLOVE_ITEM);
+      if (gloveIdx !== -1) row[gloveIdx] = gloveStr;
+    }
 
     await sheets.spreadsheets.values.append({
       spreadsheetId,
