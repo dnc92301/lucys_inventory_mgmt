@@ -292,8 +292,8 @@ export default function Home() {
   const [screen, setScreen] = useState<'form' | 'review' | 'success'>('form');
   const [loading, setLoading] = useState(false);
   const [deliveryDateStr, setDeliveryDateStr] = useState('');
-  //const COLLAPSED_BY_DEFAULT = ['🧹 Cleaning', '🔖 Infrequent'];
-  const COLLAPSED_BY_DEFAULT: string[] = [];
+  const COLLAPSED_BY_DEFAULT = ['🧹 Cleaning', '🔖 Infrequent'];
+  //const COLLAPSED_BY_DEFAULT: string[] = [];
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>(
     Object.fromEntries(COLLAPSED_BY_DEFAULT.map(c => [c, true]))
   );
@@ -391,7 +391,7 @@ export default function Home() {
 
   return (
     //<div style={{ maxWidth: 480, margin: '0 auto', padding: '0 0 80px', fontFamily: 'system-ui, sans-serif' }}>
-    <div style={{ maxWidth: 480, margin: '0 auto', padding: '0 0 120px', fontFamily: 'system-ui, sans-serif' }}>
+    <div style={{ maxWidth: 480, margin: '0 auto', padding: '0 0 100px', fontFamily: 'system-ui, sans-serif' }}>
 
       {/* Header */}
       <div style={{ background: '#1A2A3A', padding: '16px 20px', position: 'sticky', top: 0, zIndex: 10 }}>
