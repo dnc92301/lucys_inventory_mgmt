@@ -292,7 +292,8 @@ export default function Home() {
   const [screen, setScreen] = useState<'form' | 'review' | 'success'>('form');
   const [loading, setLoading] = useState(false);
   const [deliveryDateStr, setDeliveryDateStr] = useState('');
-  const COLLAPSED_BY_DEFAULT = ['🧹 Cleaning', '🔖 Infrequent'];
+  //const COLLAPSED_BY_DEFAULT = ['🧹 Cleaning', '🔖 Infrequent'];
+  const COLLAPSED_BY_DEFAULT: string[] = [];
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>(
     Object.fromEntries(COLLAPSED_BY_DEFAULT.map(c => [c, true]))
   );
